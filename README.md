@@ -17,3 +17,4 @@
 11. Cancel booking: As a **Site User** I can **cancel a booking**
 12. View menu: As a **Site User** I can **view the menu** so that **I can decide on meals beforehand**
 13. Contact form: As a **Site User** I can **submit a contact form** so that **I can get support from the restaurant**
+14. Confirm bookings: As a **Site Admin** I can **approve bookings** so that **I can better plan bookings**

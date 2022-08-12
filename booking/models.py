@@ -4,7 +4,7 @@ from django.db import models
 # from cloudinary.models import CloudinaryField
 
 OPEN = ((0, "Open"), (1, "Booked"))
-PAID = ((0, "No"), (1, "Yes"))
+CONFIRM = ((0, "No"), (1, "Yes"))
 TABLE_SIZES = ((2, "2-Places"), (4, "4-Places"), (6, "6-Places"),
                (8, "8-Places"))
 
@@ -35,13 +35,12 @@ class User(models.Model):
     surname = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
-    login_id = models.CharField(max_length=50)
-    password = models.CharField(max_length=50)
-    address1 = models.CharField(max_length=50)
-    address2 = models.CharField(max_length=50)
-    address3 = models.CharField(max_length=50)
-    postal_code = models.CharField(max_length=50)
-    town_city = models.CharField(max_length=50)
+    login_id = models.CharField(max_length=50, blank=True)
+    address1 = models.CharField(max_length=50, blank=True)
+    address2 = models.CharField(max_length=50, blank=True)
+    address3 = models.CharField(max_length=50, blank=True)
+    postal_code = models.CharField(max_length=50, blank=True)
+    town_city = models.CharField(max_length=50, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -51,12 +50,12 @@ class User(models.Model):
 class Booking(models.Model):
     """ Model for the bookings table """
     booking_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
-    booking_date = models.DateTimeField(auto_now=False)
+    booking_date = models.DateField(auto_now=False)
     booking_time = models.TimeField(auto_now=False, auto_now_add=False)
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated_on = models.DateTimeField(auto_now=True)
     no_of_guests = models.IntegerField()
-    paid = models.IntegerField(choices=PAID, default=0)
+    confirm = models.IntegerField(choices=CONFIRM, default=0)
     table_id = models.ForeignKey(Table, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
