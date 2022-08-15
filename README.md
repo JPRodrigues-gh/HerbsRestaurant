@@ -18,3 +18,4 @@
 12. View menu: As a **Site User** I can **view the menu** so that **I can decide on meals beforehand**
 13. Contact form: As a **Site User** I can **submit a contact form** so that **I can get support from the restaurant**
 14. Confirm bookings: As a **Site Admin** I can **approve bookings** so that **I can better plan bookings**
+15. Password reset: As a **Site User** I can **request a password reset and receive email confirmation** so that **I can access my account if I have forgotten my password

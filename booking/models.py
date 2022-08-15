@@ -56,8 +56,6 @@ class Booking(models.Model):
     last_updated_on = models.DateTimeField(auto_now=True)
     no_of_guests = models.IntegerField()
     confirm = models.IntegerField(choices=CONFIRM, default=0)
-    table_id = models.ForeignKey(Table, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         """ Order the bookings by date ascending"""
@@ -65,6 +63,12 @@ class Booking(models.Model):
 
     def __str__(self):
         return str(self.booking_id)
+
+
+class Booking_join(models.Model):
+    booking_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    table_id = models.ForeignKey(Table, on_delete=models.CASCADE)
 
 
 class Contact(models.Model):

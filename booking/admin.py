@@ -22,7 +22,7 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     """ Add filter functionality to Booking table on booking_date"""
-    list_display = ('booking_id', 'booking_date', 'booking_time', 'no_of_guests', 'confirm', 'table_id')
+    list_display = ('booking_id', 'booking_date', 'booking_time', 'no_of_guests', 'confirm')
     list_filter = ('booking_date',)
     actions = ['confirm_booking']
 
