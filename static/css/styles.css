@@ -1,10 +1,10 @@
-.btn-signup {
+.btn-submit {
     background-color: #23bb67;
     color: #fff;
 }
 
-.btn-signup:hover,
-.btn-signup:active {
+.btn-submit:hover,
+.btn-submit:active {
     background-color: #fff;
     color: #23bb67;
 }

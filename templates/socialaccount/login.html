@@ -4,18 +4,96 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-{% if process == "connect" %}
-<h1>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h1>
+<!-- <script>
+  function statusChangeCallback(response) { // Called with the results from FB.getLoginStatus().
+    console.log('statusChangeCallback');
+    console.log(response); // The current login status of the person.
+    if (response.status === 'connected') { // Logged into your webpage and Facebook.
+      testAPI();
+    } else { // Not logged into your webpage or we are unable to tell.
+      document.getElementById('status').innerHTML = 'Please log ' +
+        'into this webpage.';
+    }
+  }
 
-<p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from {{ provider }}.{% endblocktrans %}</p>
-{% else %}
-<h1>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h1>
 
-<p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from {{ provider }}.{% endblocktrans %}</p>
-{% endif %}
+  function checkLoginState() { // Called when a person is finished with the Login Button.
+    FB.getLoginStatus(function (response) { // See the onlogin handler
+      statusChangeCallback(response);
+    });
+  }
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">{% trans "Continue" %}</button>
-</form>
+
+  window.fbAsyncInit = function () {
+    FB.init({
+      appId: '{app-id}',
+      cookie: true, // Enable cookies to allow the server to access the session.
+      xfbml: true, // Parse social plugins on this webpage.
+      version: '{api-version}' // Use this Graph API version for this call.
+    });
+
+
+    FB.getLoginStatus(function (response) { // Called after the JS SDK has been initialized.
+      statusChangeCallback(response); // Returns the login status.
+    });
+  };
+
+  function testAPI() { // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function (response) {
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
+</script> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 mt-3 offset-md-4">
+      {% if process == "connect" %}
+      <h3>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h3>
+
+      <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from
+        {{ provider }}.{% endblocktrans %}</p>
+      {% else %}
+      <h3>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h3>
+
+      <p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from
+        {{ provider }}.{% endblocktrans %}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 mt-3 offset-md-4">
+      <form method="post">
+        {% csrf_token %}
+        <button class="btn btn-submit right" type="submit">
+          <!-- <fb:login-button size="xlarge" scope="public_profile,email" onlogin="checkLoginState();"> -->
+          <!-- </fb:login-button> -->
+          {% trans "Continue" %}
+        </button>
+        <div id="status">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- The JS SDK Login Button -->
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-md-8 mt-3 offset-md-4">
+      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+      </fb:login-button>
+
+      <div id="status">
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- Load the JS SDK asynchronously -->
+<!-- <script async defer crossorigin="an/onymous" src="https://connect.facebook.net/en_US/sdk.js"></script> -->
 {% endblock %}
