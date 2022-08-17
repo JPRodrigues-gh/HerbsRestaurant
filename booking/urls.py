@@ -1,8 +1,9 @@
 ''' url.py file in the booking app folder '''
-from . import views
 from django.urls import path
+from . import views
 
 
 urlpatterns = [
-    path('', views.BookingList.as_view(), name='home')
+    # path('', views.BookingList.as_view(), name='index')
+    path('', views.index, name='index')
 ]
