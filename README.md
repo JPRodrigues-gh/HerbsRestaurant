@@ -22,13 +22,13 @@
 
 ## References
 
-### Website Design and layout
+### Website Design, Layout and function
 - I used the "https://startbootstrap.com/previews/business-casual" as my template
 - I used the part of social network links layout from my tourguide project
 - The home page image I is from Pexel and icons_for_free
  - pexels-foodie-factor-551997.avif
  - pexels-rachel-claire-4577396.avif
-- Used convertio.co, compressjpeg.com, cleancss.com
+- Used convertio.co, compressjpeg.com, cleancss.com, geeksforgeeks.org
 
 ### User account sign up and login functionality
 - Guided by django blog project

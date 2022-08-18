@@ -8,3 +8,15 @@
     background-color: #fff;
     color: #23bb67;
 }
+
+.textcolor {
+    color: #fff
+}
+
+.liststyle {
+    list-style: none;
+}
+
+.navbar-toggler { 
+    border: none;
+}

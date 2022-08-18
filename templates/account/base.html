@@ -9,7 +9,7 @@
     {% block body %}
 
     {% if messages %}
-    <div>
+    <div class="textcolor">
       <strong>Messages:</strong>
       <ul>
         {% for message in messages %}
@@ -19,7 +19,7 @@
     </div>
     {% endif %}
 
-    <div>
+    <div class="textcolor">
       <strong>Menu:</strong>
       <ul>
         {% if user.is_authenticated %}

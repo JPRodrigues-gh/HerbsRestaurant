@@ -7,21 +7,21 @@ def index(request):
     return render(request, 'index.html')
 
 
-# def menu(request):
-#     return render(request, 'menu.html')
+def menu(request):
+    return render(request, 'menu.html')
 
 
-# def about(request):
-#     return render(request, 'about.html')
+def about(request):
+    return render(request, 'about.html')
 
 
-# def store(request):
-#     return render(request, 'store.html')
+def contact(request):
+    return render(request, 'contact.html')
 
 
-# class BookingList(generic.ListView):
-#     """ View of Booking table """
-#     model = Booking
-#     queryset = Booking.objects.order_by('booking_date')
-#     template_name = 'booking_detail.html'
-#     paginate_by = 10
+class BookingList(generic.ListView):
+    """ View of Booking table """
+    model = Booking
+    queryset = Booking.objects.order_by('booking_date')
+    template_name = 'booking_detail.html'
+    # paginate_by = 10
