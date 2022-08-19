@@ -3,6 +3,7 @@ from django.views import generic
 from .models import Booking, Contact
 from .contact import ContactForm
 
+
 def index(request):
     return render(request, 'index.html')
 

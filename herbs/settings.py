@@ -17,6 +17,7 @@ import dj_database_url
 if os.path.isfile('env.py'):
     import env
 
+development = os.environ.get('DEVELOPMENT', False)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -64,9 +65,9 @@ SOCIALACCOUNT_PROVIDERS = {
        # (``socialaccount`` app) containing the required client
        # credentials, or list them here:
        'APP': {
-          'client_id': os.environ['GOOGLE_API_KEY'],
+          'client_id': os.environ['GOOGLE_APP_ID'],
           'secret': os.environ['GOOGLE_APP_SECRET'],
-          'key': os.environ['GOOGLE_APP_ID']
+          'key': os.environ['GOOGLE_API_KEY']
         }
     },
     'facebook': {
@@ -74,9 +75,9 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': os.environ['FACEBOOK_API_KEY'],
+            'client_id': os.environ['FACEBOOK_APP_ID'],
             'secret': os.environ['FACEBOOK_APP_SECRET'],
-            'key': os.environ['FACEBOOK_APP_ID']
+            'key': os.environ['FACEBOOK_API_KEY']
         }
     },
 }
@@ -93,7 +94,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Development triggered to console
-if DEVELOPMENT in os.environ:
+if development:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     DEFAULT_FROM_EMAIL = 'herbs@example.com'
 else:
@@ -101,7 +102,7 @@ else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_USES_TLS = True
     EMAIL_PORT = 587
-    EMAIL_HOST = smtp.gmail.com
+    EMAIL_HOST = 'smtp.gmail.com'
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
