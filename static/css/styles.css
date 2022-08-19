@@ -1,4 +1,4 @@
-.btn-submit {
+/* .btn-submit {
     background-color: #23bb67;
     color: #fff;
 }
@@ -7,11 +7,7 @@
 .btn-submit:active {
     background-color: #fff;
     color: #23bb67;
-}
-
-.textcolor {
-    color: #fff
-}
+} */
 
 .liststyle {
     list-style: none;
@@ -19,4 +15,26 @@
 
 .navbar-toggler { 
     border: none;
+}
+
+/* Form */
+.enquiry-form {
+    margin: auto;
+    max-width: 400px;
+    padding: 30px;
+}
+
+.enquire-button {
+    margin-top: 20px;
+    border-radius: 6px;
+    padding: 15px 32px 15px 32px;
+    text-align: center;
+    font-size: 100%;
+    background-color: #252525;
+    color: #fafafa;
+}
+
+.enquire-button:hover {
+    background-color: #616161;
+    color: #252525;
 }

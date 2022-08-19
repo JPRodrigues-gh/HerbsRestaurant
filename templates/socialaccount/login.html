@@ -48,33 +48,42 @@
   }
 </script> -->
 
-<div class="container textcolor">
+<div class="container">
   <div class="row">
-    <div class="col-md-8 mt-3 offset-md-4">
-      {% if process == "connect" %}
-      <h3>{% blocktrans with provider.name as provider %}Connect {{ provider }}{% endblocktrans %}</h3>
+    <section class="page-section about-heading">
+      <div class="col-xl-5 col-lg-6 col-md-8 mt-3 offset-md-4 mx-auto">
+        <div class="bg-faded rounded p-3">
+          <div class="text-center">
+            {% if process == "connect" %}
+            <h3 class="section-heading mb-4">{% blocktrans with provider.name as provider %}Connect
+              {{ provider }}{% endblocktrans %}</h3>
 
-      <p>{% blocktrans with provider.name as provider %}You are about to connect a new third party account from
-        {{ provider }}.{% endblocktrans %}</p>
-      {% else %}
-      <h3>{% blocktrans with provider.name as provider %}Sign In Via {{ provider }}{% endblocktrans %}</h3>
+            <p>{% blocktrans with provider.name as provider %}
+              You are about to connect a new third party account from
+              {{ provider }}.{% endblocktrans %}</p>
+            {% else %}
+            <h3 class="section-heading mb-4">{% blocktrans with provider.name as provider %}Sign In Via
+              {{ provider }}{% endblocktrans %}</h3>
 
-      <p>{% blocktrans with provider.name as provider %}You are about to sign in using a third party account from
-        {{ provider }}.{% endblocktrans %}</p>
-      {% endif %}
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-4">
-      <form method="post">
-        {% csrf_token %}
-        <button class="btn btn-submit right" type="submit">
-          {% trans "Continue" %}
-        </button>
-        <div id="status">
+            <p>{% blocktrans with provider.name as provider %}
+              You are about to sign in using a third party account from
+              {{ provider }}.{% endblocktrans %}</p>
+            {% endif %}
+            <form class="enquiry-form" method="post">
+              {% csrf_token %}
+              <div class="form-group">
+
+                <button class="btn btn-submit right enquire-button" type="submit">
+                  {% trans "Continue" %}
+                </button>
+                <div id="status">
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </section>
   </div>
 </div>
 

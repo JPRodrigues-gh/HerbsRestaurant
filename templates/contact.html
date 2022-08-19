@@ -3,7 +3,43 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <!-- Insert contact form here -->
+        <section class="page-section about-heading">
+            <div class="col-xl-5 col-lg-6 mx-auto">
+                <div class="bg-faded rounded p-3">
+                    <div class="text-center">
+                        <h4 class="section-heading mb-4">Let us know how we can help you</h4>
+                    </div>
+                    <form class="enquiry-form" action="add" method="POST">
+                        {%csrf_token%}
+                        <div class="form-group">
+                            <input id="fname" name="first_name" type="text" class="form-control"
+                                placeholder="First name">
+                            <input id="lname" name="last_name" type="text" class="form-control" placeholder="Last name">
+                            <input id="cellphone" name="cellphone_number" type="text" class="form-control"
+                                placeholder="Cellphone Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <label class="form-check-label" for="cc">
+                                    Email me a copy
+                                </label>
+                                <input class="form-check-input" type="checkbox" id="cc" name="cc">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="labels" for="add-info">Tell us about it:</label>
+                            <textarea class="form-control" id="add-info" name="add_info" cols="30" rows="5"
+                                placeholder="Please let us know how we can help you"></textarea>
+                        </div>
+                        <button class="btn btn-submit right enquire-button" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </div>
 </div>
 {%endblock%}

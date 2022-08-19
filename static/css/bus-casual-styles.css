@@ -2489,7 +2489,7 @@ textarea.form-control-lg {
      -moz-appearance: none;
           appearance: none;
   -webkit-print-color-adjust: exact;
-          color-adjust: exact;
+          print-color-adjust: exact;
 }
 .form-check-input[type=checkbox] {
   border-radius: 0.25em;
@@ -11290,7 +11290,7 @@ textarea.form-control-lg {
 body {
   background-image: linear-gradient(rgba(47, 23, 15, 0.65), rgba(47, 23, 15, 0.65)), url("../img/pexels-rachel-claire-4577396.avif");
   background-attachment: fixed;
-  background-position: center;
+  background-position: bottom;
   background-size: cover;
 }
 
