@@ -36,9 +36,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['herbsrestaurant.herokuapp.com', 'localhost']
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,8 +47,6 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.facebook',
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
@@ -59,28 +55,30 @@ INSTALLED_APPS = [
 ]
 
 # Provider specific settings
-SOCIALACCOUNT_PROVIDERS = {
-    'google': {
-       # For each OAuth based provider, either add a ``SocialApp``
-       # (``socialaccount`` app) containing the required client
-       # credentials, or list them here:
-       'APP': {
-          'client_id': os.environ['GOOGLE_APP_ID'],
-          'secret': os.environ['GOOGLE_APP_SECRET'],
-          'key': os.environ['GOOGLE_API_KEY']
-        }
-    },
-    'facebook': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': os.environ['FACEBOOK_APP_ID'],
-            'secret': os.environ['FACEBOOK_APP_SECRET'],
-            'key': os.environ['FACEBOOK_API_KEY']
-        }
-    },
-}
+# 'allauth.socialaccount.providers.google',
+# 'allauth.socialaccount.providers.facebook',
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#        # For each OAuth based provider, either add a ``SocialApp``
+#        # (``socialaccount`` app) containing the required client
+#        # credentials, or list them here:
+#        'APP': {
+#           'client_id': os.environ['GOOGLE_APP_ID'],
+#           'secret': os.environ['GOOGLE_APP_SECRET'],
+#           'key': os.environ['GOOGLE_API_KEY']
+#         }
+#     },
+#     'facebook': {
+#         # For each OAuth based provider, either add a ``SocialApp``
+#         # (``socialaccount`` app) containing the required client
+#         # credentials, or list them here:
+#         'APP': {
+#             'client_id': os.environ['FACEBOOK_APP_ID'],
+#             'secret': os.environ['FACEBOOK_APP_SECRET'],
+#             'key': os.environ['FACEBOOK_API_KEY']
+#         }
+#     },
+# }
 
 SITE_ID = 1
 
