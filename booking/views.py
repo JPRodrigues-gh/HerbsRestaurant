@@ -11,12 +11,13 @@ def index(request):
 def menu(request):
     return render(request, 'menu.html')
 
+
 # The Contact Form section
 def contact(request):
     return render(request, 'contact.html')
 
 
-def getContact(request):
+def get_contact(request):
     contacts = Contact.objects.all()
     context = {
         'contacts': contacts
@@ -24,7 +25,7 @@ def getContact(request):
     return render(request, 'contact.html', context)
 
 
-def postContact(request):
+def post_contact(request):
     if request.method == 'POST':
         name = request.POST.get('first_name')
         surname = request.POST.get('last_name ')
@@ -34,7 +35,7 @@ def postContact(request):
         body = request.POST.get('add_info')
         Contact.objects.create(name=name, surname=surname, phone=phone, email=email, body=body)
         return redirect('contact')
-    return render(request, 'contact.html', context)
+    return render(request, 'contact.html')
 
 
 def about(request):

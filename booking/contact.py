@@ -5,6 +5,7 @@ allow Django to handle all the form validation
 from django import forms
 from .models import Contact
 
+ 
 class ContactForm(forms.ModelForm):
     """
     ContactForm inherits all the functionality of forms.ModelForm

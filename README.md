@@ -20,7 +20,15 @@
 14. Confirm bookings: As a **Site Admin** I can **approve bookings** so that **I can better plan bookings**
 15. Password reset: As a **Site User** I can **request a password reset and receive email confirmation** so that **I can access my account if I have forgotten my password
 
-## References
+## Bugs and Fixes
+
+* Images not found when deployed to heroku
+    * because some styles sheets and images definitions in the template were not in block tags
+    * Also added {% load static %} to all templates due to block end error 
+* Styling and images not found when deployed
+    * installed whitenoise package
+
+## Sources and References
 
 ### Website Design, Layout and function
 - I used the "https://startbootstrap.com/previews/business-casual" as my template
@@ -34,3 +42,18 @@
 - Guided by django blog project
 - Support from stackoverflow.com, web.dev, slack
 - django documentation
+
+### General support
+- djangoproject.com
+- geeksforgeeks.org
+- w3schools.com
+- Slack
+- stackoverflow
+
+## Deployment
+
+* The link to the deployed app:
+
+  * https://herbsrestaurant.herokuapp.com/
+
+  * The app was deployed using the Heroku App
