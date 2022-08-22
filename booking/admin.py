@@ -33,6 +33,6 @@ class BookingAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(SummernoteModelAdmin):
     """ Add summernote field functionality to contact.body field"""
-    list_display = ('name', 'surname', 'body', 'created_date',)
+    list_display = ('name', 'surname', 'phone', 'email', 'body', 'created_date',)
     list_filter = ('name', 'surname', 'created_date',)
     summernote_fields = ('body')

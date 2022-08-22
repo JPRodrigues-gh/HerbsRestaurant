@@ -2,11 +2,11 @@
 create forms directly from the model itself and
 allow Django to handle all the form validation
 """
-from django import forms
+from django.forms import ModelForm
 from .models import Contact
 
- 
-class ContactForm(forms.ModelForm):
+
+class ContactForm(ModelForm):
     """
     ContactForm inherits all the functionality of forms.ModelForm
     """

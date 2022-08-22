@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% load crispy_forms_tags %}
+
 <div class="container">
     <div class="row">
         <section class="page-section about-heading">
@@ -9,7 +12,12 @@
                     <div class="text-center">
                         <h4 class="section-heading mb-4">Let us know how we can help you</h4>
                     </div>
-                    <form class="enquiry-form" action="add" method="POST">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <button class="btn btn-submit right form-button" type="submit">Submit</button>
+                        </form>
+                    <!-- <form class="form-frame" action="add" method="POST">
                         {%csrf_token%}
                         <div class="form-group">
                             <input id="fname" name="first_name" type="text" class="form-control"
@@ -36,7 +44,7 @@
                                 placeholder="Please let us know how we can help you"></textarea>
                         </div>
                         <button class="btn btn-submit right enquire-button" type="submit">Submit</button>
-                    </form>
+                    </form> -->
                 </div>
             </div>
         </section>
