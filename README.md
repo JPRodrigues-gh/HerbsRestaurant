@@ -27,6 +27,7 @@
     * Also added {% load static %} to all templates due to block end error 
 * Styling and images not found when deployed
     * installed whitenoise package
+* Fixed variable EMAIL_USE_TLS, was incorrect as EMAIL_USES_TLS
 
 ## Sources and References
 
