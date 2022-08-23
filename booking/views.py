@@ -31,11 +31,14 @@ def add_contact(request):
                 email = request.POST['email']
                 body = request.POST['body']
                 email_from = settings.EMAIL_HOST_USER
-                datatuple = (
-                    (subject, body, email_from, [email]),
-                    (subject, body, email_from, [email_from,]),
-                )
-                send_mass_mail(datatuple, fail_silently=False)
+                # datatuple = (
+                #     (subject, body, email_from, [email]),
+                #     (subject, body, email_from, [email_from,]),
+                # )
+                # send_mass_mail(datatuple, fail_silently=False)
+                send_mail(subject, body, email_from, [email])
+                send_mail(subject, body, email_from, [email_from])
+
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
     form = ContactForm()
