@@ -23,6 +23,7 @@
 17. Signup email verification: As a **Site User** I will **need to verify my signup via an email verification link**
 18. About page: As a **Site User** I can **navigate to the About page** so that **I can view a brief intro to Herb’s Restaurant and it’s business hours
 19. View Bookings: As a **Site User** I can **view all my booking** so that **I make better plan my events and also cancel or change bookings**
+20. On Signup Add User: As a **Site User** when I **sign up** the app **will add my details to the user table**
 
 
 ## Bugs and Fixes
