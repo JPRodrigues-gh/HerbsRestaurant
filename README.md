@@ -5,7 +5,7 @@
 
 ## User Stories
 1. Site Navigation: As a **Site User** I can **easily navigate the site** so that **I can view the menu, sign up, and manage my bookings**
-2. Manage bookings: As a **Site Admin** I can **create, view, update and cancel bookings** so that **I can manage my table bookings**
+2. Admin Manage bookings: As a **Site Admin** I can **create, view, update and cancel bookings** so that **I can manage my table bookings**
 3. Sign-up: As a **Site User** I can **register an account** so that **I can sign-in with username and password**
 4. Reset password: As a **Site User** I can **reset my password myself** so that **I don't have to ask webmaster**
 5. Sign-in with Social Networks: As a **Site User** I can **use a social network** so that **I can sign-in to the site**
@@ -17,11 +17,12 @@
 11. Cancel booking: As a **Site User** I can **cancel a booking**
 12. View menu: As a **Site User** I can **view the menu** so that **I can decide on meals beforehand**
 13. Contact form: As a **Site User** I can **submit a contact form** so that **I can get support from the restaurant**
-14. Confirm bookings: As a **Site Admin** I can **approve bookings** so that **I can better plan bookings**
+14. Admin Confirm bookings: As a **Site Admin** I can **approve bookings** so that **I can better plan bookings**
 15. Password reset: As a **Site User** I can **request a password reset and receive email confirmation** so that **I can access my account if I have forgotten my password
 16. Email Contact form: As a **Site User** I will **receive an email confirmation of my contact form submission**
 17. Signup email verification: As a **Site User** I will **need to verify my signup via an email verification link**
 18. About page: As a **Site User** I can **navigate to the About page** so that **I can view a brief intro to Herb’s Restaurant and it’s business hours
+19. View Bookings: As a **Site User** I can **view all my booking** so that **I make better plan my events and also cancel or change bookings**
 
 
 ## Bugs and Fixes
