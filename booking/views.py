@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.conf import settings
-from django.core.mail import send_mass_mail, BadHeaderError
+from django.core.mail import send_mail, send_mass_mail, BadHeaderError
 from django.views import generic
 from .models import Booking, Contact
 from .forms import ContactForm
