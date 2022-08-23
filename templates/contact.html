@@ -12,10 +12,10 @@
                     <div class="text-center">
                         <h4 class="section-heading mb-4">Let us know how we can help you</h4>
                     </div>
-                        <form method="post">
+                        <form class="enquiry-form" method="post">
                             {% csrf_token %}
                             {{ form.as_p }}
-                            <button class="btn btn-submit right form-button" type="submit">Submit</button>
+                            <button class="btn btn-submit right enquire-button" type="submit">Submit</button>
                         </form>
                     <!-- <form class="form-frame" action="add" method="POST">
                         {%csrf_token%}
