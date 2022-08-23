@@ -27,7 +27,7 @@ def add_contact(request):
             form.save()
             try:
                 name = request.POST['name']
-                subject = "Message from " + name
+                subject = request.POST['subject']
                 email = request.POST['email']
                 body = request.POST['body']
                 email_from = settings.EMAIL_HOST_USER
@@ -52,9 +52,12 @@ def about(request):
     return render(request, 'about.html')
 
 
-def add_booking(request):
+def view_booking(request):
     """ View of Booking table """
-    model = Booking
-    queryset = Booking.objects.order_by('booking_date')
+    bookings = Booking.objects.order_by('booking_date').all()
+    context = {
+        'bookings': bookings
+    }
     template_name = 'booking.html'
+    return render(request, template_name, context)
     # paginate_by = 10
