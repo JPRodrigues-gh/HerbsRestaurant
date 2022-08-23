@@ -66,6 +66,10 @@ class Booking(models.Model):
 
 
 class Booking_join(models.Model):
+    """ 
+    Model holds information that connects a user
+    and tables booked to a unique booking id
+    """
     booking_id = models.ForeignKey(Booking, on_delete=models.CASCADE)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     table_id = models.ForeignKey(Table, on_delete=models.CASCADE)
@@ -78,6 +82,7 @@ class Contact(models.Model):
     surname = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
     email = models.CharField(max_length=50)
+    subject = models.CharField(max_length=50)
     body = models.TextField(max_length=250)
     created_date = models.DateTimeField(auto_now_add=True)
 
