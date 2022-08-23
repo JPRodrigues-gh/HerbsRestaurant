@@ -1,78 +1,50 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="masthead">
-    <div class="container">
-        <div class="row g-0">
-            <div class="col-md-6 masthead-text">
-                <!-- Post title goes in these h1 tags -->
-                <h1 class="post-title">
-                </h1>
-                <!-- Post author goes before the | the post's created date goes after -->
-                <p class="post-subtitle"> | </p>
-            </div>
-            <div class="d-none d-md-block col-md-6 masthead-image">
-                <!-- The featured image URL goes in the src attribute -->
-                {% if "placeholder" in post.featured_image.url %}
-                <img src="https://codeinstitute.s3.amazonaws.com/fullstack/blog/default.jpg" width="100%">
-                {% else %}
-                <img src="" width="100%">
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</div>
 <div class="container">
     <div class="row">
-        <div class="col card mb-4  mt-3 left  top">
-            <div class="card-body">
-                <!-- The post content goes inside the card-text. -->
-                <!-- Use the | safe filter inside the template tags -->
-                <p class="card-text "></p>
-                <div class="row">
+        <section class="page-section about-heading">
+            <div class="col-xl-5 col-lg-6 mx-auto">
+                <div class="bg-faded rounded p-3">
+                    <div class="text-center">
+                        <h4 class="section-heading mb-4">Welcome to our Bookings Manager</h4>
+                    </div>
+                    {% if user.is_authenticated %}
 
-                    <div class="col-1">
-                        <!-- The number of likes goes before the closing strong tag -->
-                        <strong class="text-secondary"><i class="far fa-heart"></i> </strong>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Booking Id</th>
+                                <th scope="col">Booking Date</th>
+                                <th scope="col">Booking Time</th>
+                                <th scope="col">No of Guests</th>
+                                <th scope="col">Booking Confirmed</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for booking in bookings %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ booking.booking_id }}</td>
+                                <td>{{ booking.booking_date }}</td>
+                                <td>{{ booking.booking_time }}</td>
+                                <td>{{ booking.no_of_guests }}</td>
+                                <td>{{ booking.confirm }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <div class="text-center">
+                        <p class="mb-0">
+                            In order to view or make bookings you must first log in.
+                        </p>
                     </div>
-                    <div class="col-1">
-                        {% with comments.count as total_comments %}
-                        <strong class="text-secondary"><i class="far fa-comments"></i>
-                            <!-- Our total_comments variable goes before the closing strong tag -->
-                        </strong>
-                        {% endwith %}
-                    </div>
+                    {% endif %}
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 card mb-4  mt-3 ">
-            <h3>Comments:</h3>
-            <div class="card-body">
-                <!-- We want a for loop inside the tags to iterate through each comment in comments -->
-                <div class="comments" style="padding: 10px;">
-                    <p class="font-weight-bold">
-                        <!-- The commenter's name goes here. Check the model if you're not sure what that is -->
-                        <span class=" text-muted font-weight-normal">
-                            <!-- The comment's created date goes here -->
-                        </span> wrote:
-                    </p>
-                    <!-- The body of the comment goes before the | -->
-                </div>
-                <!-- Our for loop ends here -->
-            </div>
-        </div>
-        <div class="col-md-4 card mb-4  mt-3 ">
-            <div class="card-body">
-                <!-- For later -->
-            </div>
-        </div>
+        </section>
     </div>
 </div>
 
