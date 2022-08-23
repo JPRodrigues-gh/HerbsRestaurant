@@ -19,6 +19,10 @@
 13. Contact form: As a **Site User** I can **submit a contact form** so that **I can get support from the restaurant**
 14. Confirm bookings: As a **Site Admin** I can **approve bookings** so that **I can better plan bookings**
 15. Password reset: As a **Site User** I can **request a password reset and receive email confirmation** so that **I can access my account if I have forgotten my password
+16. Email Contact form: As a **Site User** I will **receive an email confirmation of my contact form submission**
+17. Signup email verification: As a **Site User** I will **need to verify my signup via an email verification link**
+18. About page: As a **Site User** I can **navigate to the About page** so that **I can view a brief intro to Herb’s Restaurant and it’s business hours
+
 
 ## Bugs and Fixes
 
