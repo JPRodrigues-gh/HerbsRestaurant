@@ -2,7 +2,7 @@
 import os
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
@@ -92,3 +92,18 @@ def create_booking(request):
         'form': form
     }
     return render(request, 'create_booking.html', context)
+
+
+def update_booking(request, booking_id):
+    """Provide a means for users to change bookings"""
+    booking_id = get_object_or_404(Booking, booking_id=booking_id)
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking_id)
+        if form.is_valid():
+            form.save()
+            return redirect('booking')
+    form = BookingForm(instance=booking_id)
+    context = {
+        'form': form
+    }
+    return render(request, 'update_booking.html', context)

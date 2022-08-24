@@ -35,6 +35,13 @@
                                 {% else %}
                                 <td> No </td>
                                 {% endif%}
+                                <td>
+                                    <button class="btn btn-secondary btn-sm" type="submit">
+                                        <a href="/update/{{ booking.booking_id }}"
+                                            style="text-decoration: none !important;">
+                                            Update</a>
+                                    </button>
+                                </td>
                             </tr>
                             {% endfor %}
                         </tbody>
