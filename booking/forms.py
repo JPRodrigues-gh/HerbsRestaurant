@@ -35,4 +35,4 @@ class BookingForm(ModelForm):
          how it should display error messages and so on
         """
         model = Booking
-        fields = ['booking_id', 'booking_date', 'booking_time', 'no_of_guests', 'confirm']
+        fields = ['booking_id', 'booking_date', 'booking_time', 'no_of_guests']

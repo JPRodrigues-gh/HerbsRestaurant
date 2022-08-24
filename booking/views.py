@@ -1,18 +1,25 @@
-from django.shortcuts import render, redirect
-from django.conf import settings
-from django.core.mail import send_mail, send_mass_mail, BadHeaderError
-from django.views import generic
-from .models import Booking, Contact
-from .forms import ContactForm
+""" Views py for all booking app views """
 import os
+import datetime
+
+from django.shortcuts import render
+from django.conf import settings
+from django.http import HttpResponse
+from django.core.mail import send_mail, BadHeaderError
+from .models import Booking
+from .forms import ContactForm, BookingForm
+
 
 default_email = os.environ.get('DEFAULT_FROM_EMAIL')
 
+
 def index(request):
+    """ Render the home page """
     return render(request, 'index.html')
 
 
 def menu(request):
+    """ Render the menu page """
     return render(request, 'menu.html')
 
 
@@ -26,7 +33,6 @@ def add_contact(request):
         if form.is_valid():
             form.save()
             try:
-                name = request.POST['name']
                 subject = request.POST['subject']
                 email = request.POST['email']
                 body = request.POST['body']
@@ -49,15 +55,40 @@ def add_contact(request):
 
 
 def about(request):
+    """ Render the about page """
     return render(request, 'about.html')
 
 
+# The Booking Form section
 def view_booking(request):
     """ View of Booking table """
-    bookings = Booking.objects.order_by('booking_date').all()
+    if request.user.is_authenticated:
+        bookings = Booking.objects.filter(booking_date__gte=datetime.date.today(), login_email=request.user.email).order_by('booking_date').all()
+        context = {
+            'bookings': bookings
+        }
+        template_name = 'booking.html'
+        return render(request, 'booking.html', context)
+    return render(request, 'booking.html')
+
+
+def create_booking(request):
+    """Provide a means for users to add bookings"""
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.login_email = request.user.email
+            form.save()
+            try:
+                booking_date = request.POST['booking_date']
+                booking_time = request.POST['booking_time']
+                no_of_guests = request.POST['no_of_guests']
+                login_email = request.user.email
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+    form = BookingForm()
     context = {
-        'bookings': bookings
+        'form': form
     }
-    template_name = 'booking.html'
-    return render(request, template_name, context)
-    # paginate_by = 10
+    return render(request, 'create_booking.html', context)

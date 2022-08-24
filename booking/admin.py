@@ -22,12 +22,17 @@ class UserAdmin(admin.ModelAdmin):
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
     """ Add filter functionality to Booking table on booking_date"""
-    list_display = ('booking_id', 'booking_date', 'booking_time', 'no_of_guests', 'confirm')
+    list_display = ('booking_id', 'booking_date', 'booking_time', 'no_of_guests', 'login_email', 'confirm')
     list_filter = ('booking_date',)
-    actions = ['confirm_booking']
+    actions = ['confirm_booking', 'unconfirm_booking']
 
-    def confirm_booking(self, request, queryset):
+    def confirm_booking(self, queryset):
+        """ Admin can confirm the booking """
         queryset.update(confirm=1)
+
+    def unconfirm_booking(self, queryset):
+        """ Admin can unconfirm the booking """
+        queryset.update(confirm=0)
 
 
 @admin.register(Contact)

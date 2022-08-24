@@ -56,6 +56,7 @@ class Booking(models.Model):
     last_updated_on = models.DateTimeField(auto_now=True)
     no_of_guests = models.IntegerField()
     confirm = models.IntegerField(choices=CONFIRM, default=0)
+    login_email = models.CharField(max_length=50, blank=True)
 
     class Meta:
         """ Order the bookings by date ascending"""
@@ -65,8 +66,8 @@ class Booking(models.Model):
         return str(self.booking_id)
 
 
-class Booking_join(models.Model):
-    """ 
+class BookingJoin(models.Model):
+    """
     Model holds information that connects a user
     and tables booked to a unique booking id
     """
