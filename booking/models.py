@@ -55,8 +55,8 @@ class Booking(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated_on = models.DateTimeField(auto_now=True)
     no_of_guests = models.IntegerField()
-    confirm = models.IntegerField(choices=CONFIRM, default=0)
-    login_email = models.CharField(max_length=50, blank=True)
+    confirm = models.CharField(max_length=10, default='No')
+    login_email = models.CharField(max_length=50)
 
     class Meta:
         """ Order the bookings by date ascending"""
