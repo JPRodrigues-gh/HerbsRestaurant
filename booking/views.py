@@ -63,7 +63,7 @@ def about(request):
 def view_booking(request):
     """ View of Booking table """
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(booking_date__gte=datetime.date.today(), login_email=request.user.email).order_by('booking_date').all()
+        bookings = Booking.objects.filter(booking_date__gte=datetime.date.today(), login_email=request.user.email).exclude(confirm='cancel').order_by('booking_date').all()
         context = {
             'bookings': bookings
         }
