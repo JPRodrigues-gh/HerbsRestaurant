@@ -5,13 +5,13 @@
 <div class="container">
     <div class="row">
         <section class="page-section about-heading">
-            <div class="col-xl-7 col-lg-8 mx-auto">
+            <div class="col-xl-11 col-lg-10 col-md-9 mx-auto">
                 <div class="bg-faded rounded p-3">
                     <div class="text-center">
                         <h4 class="section-heading mb-4">Welcome to our Bookings Manager</h4>
                     </div>
                     {% if user.is_authenticated %}
-                    <table class="table">
+                    <table class="table col-xl-11 col-lg-10 col-md-9 mx-auto">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
@@ -19,7 +19,8 @@
                                 <th scope="col">Booking Date</th>
                                 <th scope="col">Booking Time</th>
                                 <th scope="col">No of Guests</th>
-                                <th scope="col">Booking Confirmed</th>
+                                <th scope="col" class="d-none d-lg-block">Booking Confirmed</th>
+                                <th scope="col" class="d-none d-md-block">        </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,12 +32,12 @@
                                 <td>{{ booking.booking_time }}</td>
                                 <td>{{ booking.no_of_guests }}</td>
                                 {% if booking.confirm %}
-                                <td> Yes </td>
+                                <td class="d-none d-lg-block"> Yes </td>
                                 {% else %}
-                                <td> No </td>
+                                <td class="d-none d-lg-block"> No </td>
                                 {% endif%}
                                 <td>
-                                    <button class="btn btn-secondary btn-sm" type="submit">
+                                    <button class="btn btn-secondary btn-sm d-none d-md-block" type="submit">
                                         <a href="/update/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Update</a>
