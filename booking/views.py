@@ -87,6 +87,7 @@ def create_booking(request):
                 login_email = request.user.email
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
+            return redirect('booking')
     form = BookingForm()
     context = {
         'form': form
@@ -110,3 +111,10 @@ def update_booking(request, booking_id):
         'form': form
     }
     return render(request, 'update_booking.html', context)
+
+
+def delete_booking(request, booking_id):
+    """Provide a means for users to cancel bookings"""
+    booking_id = get_object_or_404(Booking, booking_id=booking_id)
+    booking_id.delete()
+    return redirect('booking')

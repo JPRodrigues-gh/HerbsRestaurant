@@ -37,10 +37,15 @@
                                 <td class="d-none d-lg-block"> No </td>
                                 {% endif%}
                                 <td>
-                                    <button class="btn btn-secondary btn-sm d-none d-md-block" type="submit">
+                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" type="submit">
                                         <a href="/update/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
-                                            Update</a>
+                                            Change</a>
+                                    </button>
+                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" type="submit">
+                                        <a href="/delete/{{ booking.booking_id }}"
+                                            style="text-decoration: none !important;">
+                                            Cancel</a>
                                     </button>
                                 </td>
                             </tr>
