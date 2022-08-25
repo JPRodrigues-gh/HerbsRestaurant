@@ -101,9 +101,9 @@ def update_booking(request, booking_id):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking_id)
         if form.is_valid():
-            if form.confirm == 1:
+            if form.confirm == 'Yes':
                form = form.save(commit=False)
-               form.confirm = 0
+               form.confirm = 'No'
             form.save()
             return redirect('booking')
     form = BookingForm(instance=booking_id)
