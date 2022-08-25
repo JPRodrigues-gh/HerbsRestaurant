@@ -35,6 +35,13 @@
     * installed whitenoise package
 * Fixed variable EMAIL_USE_TLS, was incorrect as EMAIL_USES_TLS (Thanks Ian Meigh for spotting it for me - post in Slack)
     * After hours of figuring out how "it" works, then going through error after error, the brain swells and the simplest typo is blocked from your sight
+* BookingAdmin class -- confirm functions -- admin.py
+    * previously working (somehow) with two parameters, ```def confirm_booking(self, queryset):```, when simply changing confirm from 0 to 1 and vice versa. 0 being No and 1 being Yes.
+    * after changing the field type from integer to char and adding an additional option of 'cancel' I received this error:
+        * confirm_booking() takes 2 positional arguments but 3 were given
+    * After scouring the web for possible causes I came up empty handed. I decided to look deeper into the detail and found my solution from looking into:
+        * File "/workspace/.pip-modules/lib/python3.8/site-packages/django/contrib/admin/options.py", line 1408, in response_action response = func(self, request, queryset)
+    * Adding 'request' as a second parameter solved the issue: ```def confirm_booking(self, request, queryset):```
 
 ## Sources and References
 
