@@ -21,26 +21,26 @@ class UserAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    """ Add filter functionality to Booking table on booking_date"""
+    """ Add display fields and filter to Booking table """
     list_display = (
         'booking_id',
         'booking_date',
         'booking_time',
         'no_of_guests',
         'login_email',
-        'confirm')
+        'confirm',)
     list_filter = ('booking_date',)
     actions = ['confirm_booking', 'unconfirm_booking', 'cancel_booking']
 
-    def confirm_booking(self, queryset):
+    def confirm_booking(self, request, queryset):
         """ Admin can confirm the booking """
         queryset.update(confirm='Yes')
 
-    def unconfirm_booking(self, queryset):
+    def unconfirm_booking(self, request, queryset):
         """ Admin can unconfirm the booking """
         queryset.update(confirm='No')
 
-    def cancel_booking(self, queryset):
+    def cancel_booking(self, request, queryset):
         """ Admin can cancel the booking """
         queryset.update(confirm='cancel')
 
@@ -48,6 +48,12 @@ class BookingAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(SummernoteModelAdmin):
     """ Add summernote field functionality to contact.body field"""
-    list_display = ('name', 'surname', 'phone', 'email', 'body', 'created_date',)
+    list_display = (
+        'name',
+        'surname',
+        'phone',
+        'email',
+        'body',
+        'created_date')
     list_filter = ('name', 'surname', 'created_date',)
     summernote_fields = ('body')

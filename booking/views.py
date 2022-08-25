@@ -59,7 +59,9 @@ def view_booking(request):
     if request.user.is_authenticated:
         bookings = Booking.objects.filter(
             booking_date__gte=datetime.date.today(),
-            login_email=request.user.email).exclude(confirm='cancel').order_by('booking_date').all()
+            login_email=request.user.email).exclude(
+                confirm='cancel').order_by(
+                    'booking_date').all()
         context = {
             'bookings': bookings
         }
@@ -83,8 +85,8 @@ def create_booking(request):
                 # login_email = request.user.email
                 # email_from = settings.EMAIL_HOST_USER
                 # subject = "New booking from " + request.user.username
-                # body = "Booking for " + 
-                # booking_date + "at" + booking_time + "for" + no_of_guests + "guests"
+                # body = "Booking for " + booking_date +
+                # "at" + booking_time + "for" + no_of_guests + "guests"
                 # send_mail(subject, body, email, [email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')

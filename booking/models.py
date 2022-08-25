@@ -30,7 +30,11 @@ class Table(models.Model):
 
 class User(models.Model):
     """ Model for the users table """
-    user_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    user_id = models.BigAutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID')
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
@@ -49,7 +53,11 @@ class User(models.Model):
 
 class Booking(models.Model):
     """ Model for the bookings table """
-    booking_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    booking_id = models.BigAutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID')
     booking_date = models.DateField(auto_now=False)
     booking_time = models.TimeField(auto_now=False, auto_now_add=False)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -78,7 +86,11 @@ class BookingJoin(models.Model):
 
 class Contact(models.Model):
     """ Model for the contact table """
-    contact_id = models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
+    contact_id = models.BigAutoField(
+        auto_created=True,
+        primary_key=True,
+        serialize=False,
+        verbose_name='ID')
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
     phone = models.CharField(max_length=30)
