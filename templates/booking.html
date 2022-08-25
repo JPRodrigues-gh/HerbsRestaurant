@@ -31,18 +31,15 @@
                                 <td>{{ booking.booking_date }}</td>
                                 <td>{{ booking.booking_time }}</td>
                                 <td>{{ booking.no_of_guests }}</td>
-                                {% if booking.confirm %}
-                                <td class="d-none d-lg-block"> Yes </td>
-                                {% else %}
-                                <td class="d-none d-lg-block"> No </td>
-                                {% endif%}
+                                <td>{{ booking.confirm }}</td>
                                 <td>
-                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" type="submit">
+                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" style="width: 100%;" type="submit">
                                         <a href="/update/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Change</a>
                                     </button>
-                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" type="submit">
+                                
+                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" style="width: 100%;" type="submit">
                                         <a href="/cancel/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Cancel</a>

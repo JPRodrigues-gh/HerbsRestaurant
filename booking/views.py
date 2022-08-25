@@ -104,10 +104,15 @@ def update_booking(request, booking_id):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking_id)
         if form.is_valid():
-            if form.confirm == 'Yes':
-                form = form.save(commit=False)
-                form.confirm = 'No'
-            form.save()
+            print(form.data)
+            print(form.cleaned_data)
+            if form.cleaned_data.get('confirm') == 'Yes':
+                booking = form.save(commit=False)
+                print("booking", booking)
+                booking.confirm = 'No'
+                booking.save()
+            else:
+                form.save()
             return redirect('booking')
     form = BookingForm(instance=booking_id)
     context = {

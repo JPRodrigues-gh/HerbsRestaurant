@@ -42,6 +42,8 @@
     * After scouring the web for possible causes I came up empty handed. I decided to look deeper into the detail and found my solution from looking into:
         * File "/workspace/.pip-modules/lib/python3.8/site-packages/django/contrib/admin/options.py", line 1408, in response_action response = func(self, request, queryset)
     * Adding 'request' as a second parameter solved the issue: ```def confirm_booking(self, request, queryset):```
+* Booking template
+    * after changing confirm field from integer to char in booking model I didn't remove the conditional statement from the booking template used to set confirm 0 to No and 1 to Yes. This displayed inconsistant values. 
 
 ## Sources and References
 
