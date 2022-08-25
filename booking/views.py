@@ -37,14 +37,8 @@ def add_contact(request):
                 email = request.POST['email']
                 body = request.POST['body']
                 email_from = settings.EMAIL_HOST_USER
-                # datatuple = (
-                #     (subject, body, email_from, [email]),
-                #     (subject, body, email_from, [email_from,]),
-                # )
-                # send_mass_mail(datatuple, fail_silently=False)
                 send_mail(subject, body, email_from, [email])
                 send_mail(subject, body, email_from, [email_from])
-
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
     form = ContactForm()
@@ -63,7 +57,9 @@ def about(request):
 def view_booking(request):
     """ View of Booking table """
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(booking_date__gte=datetime.date.today(), login_email=request.user.email).exclude(confirm='cancel').order_by('booking_date').all()
+        bookings = Booking.objects.filter(
+            booking_date__gte=datetime.date.today(),
+            login_email=request.user.email).exclude(confirm='cancel').order_by('booking_date').all()
         context = {
             'bookings': bookings
         }
@@ -84,7 +80,12 @@ def create_booking(request):
                 booking_date = request.POST['booking_date']
                 booking_time = request.POST['booking_time']
                 no_of_guests = request.POST['no_of_guests']
-                login_email = request.user.email
+                # login_email = request.user.email
+                # email_from = settings.EMAIL_HOST_USER
+                # subject = "New booking from " + request.user.username
+                # body = "Booking for " + 
+                # booking_date + "at" + booking_time + "for" + no_of_guests + "guests"
+                # send_mail(subject, body, email, [email])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('booking')
@@ -102,8 +103,8 @@ def update_booking(request, booking_id):
         form = BookingForm(request.POST, instance=booking_id)
         if form.is_valid():
             if form.confirm == 'Yes':
-               form = form.save(commit=False)
-               form.confirm = 'No'
+                form = form.save(commit=False)
+                form.confirm = 'No'
             form.save()
             return redirect('booking')
     form = BookingForm(instance=booking_id)
@@ -114,7 +115,15 @@ def update_booking(request, booking_id):
 
 
 def delete_booking(request, booking_id):
+    """Provide a means for users to delete bookings"""
+    booking = get_object_or_404(Booking, booking_id=booking_id)
+    booking.delete()
+    return redirect('booking')
+
+
+def cancel_booking(request, booking_id):
     """Provide a means for users to cancel bookings"""
-    booking_id = get_object_or_404(Booking, booking_id=booking_id)
-    booking_id.delete()
+    booking = get_object_or_404(Booking, booking_id=booking_id)
+    booking.confirm = 'cancel'
+    booking.save()
     return redirect('booking')

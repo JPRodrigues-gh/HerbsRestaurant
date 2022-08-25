@@ -19,7 +19,12 @@ class ContactForm(ModelForm):
          how it should display error messages and so on
         """
         model = Contact
-        fields = ['name', 'surname', 'phone', 'email', 'body']
+        fields = [
+            'name',
+            'surname',
+            'phone',
+            'email',
+            'body']
 
 
 class BookingForm(ModelForm):
@@ -35,4 +40,13 @@ class BookingForm(ModelForm):
          how it should display error messages and so on
         """
         model = Booking
-        fields = ['booking_id', 'booking_date', 'booking_time', 'no_of_guests']
+        fields = [
+            'booking_id',
+            'booking_date',
+            'booking_time',
+            'no_of_guests',
+            'confirm']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['confirm'].disabled = True
