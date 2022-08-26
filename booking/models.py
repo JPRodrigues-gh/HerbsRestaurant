@@ -93,7 +93,7 @@ class Contact(models.Model):
         verbose_name='ID')
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=30)
-    phone = models.CharField(max_length=30)
+    phone = models.CharField(max_length=30, null=True, blank=True)
     email = models.CharField(max_length=50)
     subject = models.CharField(max_length=50)
     body = models.TextField(max_length=250)
