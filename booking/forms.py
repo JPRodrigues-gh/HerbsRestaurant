@@ -24,6 +24,7 @@ class ContactForm(ModelForm):
             'surname',
             'phone',
             'email',
+            'subject',
             'body']
 
 
@@ -41,7 +42,6 @@ class BookingForm(ModelForm):
         """
         model = Booking
         fields = [
-            'booking_id',
             'booking_date',
             'booking_time',
             'no_of_guests',
