@@ -67,7 +67,6 @@ def view_booking(request):
         context = {
             'bookings': bookings
         }
-        template_name = 'booking.html'
         return render(request, 'booking.html', context)
     return render(request, 'booking.html')
 
@@ -106,8 +105,8 @@ def update_booking(request, booking_id):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking_id)
         if form.is_valid():
-            print(form.data)
-            print(form.cleaned_data)
+            # print(form.data)
+            # print(form.cleaned_data)
             if form.cleaned_data.get('confirm') == 'Yes':
                 booking = form.save(commit=False)
                 print("booking", booking)
@@ -133,6 +132,6 @@ def delete_booking(request, booking_id):
 def cancel_booking(request, booking_id):
     """Provide a means for users to cancel bookings"""
     booking = get_object_or_404(Booking, booking_id=booking_id)
-    booking.confirm = 'cancel'
+    booking.confirm = 'Cancel'
     booking.save()
     return redirect('booking')
