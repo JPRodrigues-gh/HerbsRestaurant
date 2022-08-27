@@ -79,6 +79,7 @@
 - w3schools.com
 - Slack
 - stackoverflow
+- simpleisbetterthancomplex.com
 
 ## Deployment
 
