@@ -39,8 +39,7 @@ class TestViews(TestCase):
             'booking_date': '2022-11-11',
             'booking_time': '17:00',
             'no_of_guests': 3})
-        # self.assertRedirects(response, '/booking/')
-        # self.assertEqual(response.status_code, 301)
+        self.assertRedirects(response, '/create/', status_code=301, target_status_code=200)
 
     def test_update_booking(self):
         """
@@ -65,15 +64,6 @@ class TestViews(TestCase):
             booking_time='17:00',
             no_of_guests=6)
         self.assertTrue(booking_updated)
-
-        # self.assertEqual(response.status_code, 302)
-        # booking.refresh_from_db()
-        # self.assertEqual(
-        #     booking.booking_date.strftime('%Y-%m-%d'),
-        #     '2022-11-22'
-        #     )
-        # self.assertEqual(booking.booking_time.strftime('%H:%M'), '17:00')
-        # self.assertEqual(booking.no_of_guests, 6)
 
     def test_delete_booking(self):
         """
