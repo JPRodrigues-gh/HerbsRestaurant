@@ -59,9 +59,11 @@ INSTALLED_APPS = [
     'booking',
 ]
 
-# Provider specific settings
+# Provider specific settings for login in with social accounts
+# Below 2 lines go in INSTALLED_APPS
 # 'allauth.socialaccount.providers.google',
 # 'allauth.socialaccount.providers.facebook',
+#
 # SOCIALACCOUNT_PROVIDERS = {
 #     'google': {
 #        # For each OAuth based provider, either add a ``SocialApp``
@@ -111,7 +113,6 @@ else:
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -198,7 +199,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
