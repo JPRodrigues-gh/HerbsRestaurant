@@ -25,6 +25,19 @@
 19. View Bookings: As a **Site User** I can **view all my booking** so that **I make better plan my events and also cancel or change bookings**
 20. On Signup Add User: As a **Site User** when I **sign up** the app **will add my details to the user table**
 
+## Testing
+
+# Django Tests
+
+* Created test cases to test the BookingForm. Test file name: test_bookingform.py
+    * Tests to confirm that the form is only valid if all required fields are completed
+    * Tests to confirm that only the necessary field are displayed on the form
+* Created test cases to test the ContactForm. Test file name: test_contactform.py
+    * Tests are run to confirm that the form is only valid if all required fields are completed
+    * Tests to confirm that only the necessary field are displayed on the form
+    * Not tested: Confirm field is read-only/disabled.
+
+
 
 ## Bugs and Fixes
 
