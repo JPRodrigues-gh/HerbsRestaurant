@@ -36,6 +36,15 @@
     * Tests are run to confirm that the form is only valid if all required fields are completed
     * Tests to confirm that only the necessary field are displayed on the form
     * Not tested: Confirm field is read-only/disabled.
+* Created test cases to test the all view templates render
+* Created test case to test that adding a contact or submitting a contact form works as expected
+* Created test cases to verify that the user can:
+    * Create a booking
+    * Update/make changes to a booking
+    * Delete a booking
+    * Mark a booking as cancelled
+    * The option to cancel a booking is preferable, as the record will still be visible to the admin
+    * Functionality can be added later to provide conditions permitting a user to delete a booking
 
 
 
