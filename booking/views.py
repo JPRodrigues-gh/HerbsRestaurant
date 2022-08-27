@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
+from django.contrib import messages
 from .models import Booking
 from .forms import ContactForm, BookingForm
 
@@ -41,6 +42,7 @@ def add_contact(request):
                 send_mail(subject, body, email_from, [email_from])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
+            messages.success(request, 'Your message has been submitted.')
     form = ContactForm()
     context = {
         'form': form

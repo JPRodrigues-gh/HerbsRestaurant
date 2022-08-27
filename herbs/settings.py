@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.contrib.messages import constants as message_constants
 
 # import mimetypes
 
@@ -113,6 +114,8 @@ else:
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
+MESSAGE_LEVEL = message_constants.DEBUG
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
