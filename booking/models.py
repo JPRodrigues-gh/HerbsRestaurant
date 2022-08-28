@@ -62,6 +62,7 @@ class Booking(models.Model):
     booking_time = models.TimeField()
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated_on = models.DateTimeField(auto_now=True)
+    table_id = models.CharField(max_length=30)
     no_of_guests = models.PositiveIntegerField()
     confirm = models.CharField(max_length=10, default='No')
     login_email = models.CharField(max_length=50)
