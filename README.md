@@ -43,13 +43,28 @@
     * Update/make changes to a booking
     * Delete a booking
     * Mark a booking as cancelled
-    * The option to cancel a booking is preferable, as the record will still be visible to the admin
-    * Functionality can be added later to provide conditions permitting a user to delete a booking
 
+# Manual Testing
+
+* Tested that a user can make a booking
+    * An email is sent to the restaurant admin advising of the new booking
+    * The booking is listed on the user's booking listing
+    * for each line item a **'Change'** and **'Cancel'** button is activated
+* Tested that a user can change booking details
+    * once a change is made to booking, if the booking had already been confirmed by restaurant admin, the status of the booking will be reset from **confirm='Yes'** to **confirm='No'**
+* Tested that the user can delete a record
+    * Delete option/button was replaced by the cancel button
+* Tested that the user can cancel a booking
+    * When a user cancels a booking **confirm** is set to **'Cancel'**
+    * The option to cancel a booking is preferable, as the record will still be visible to the admin
+    * Once the user cancels the booking, the booking is no longer displayed to the user
+    * On cancelling a booking an email is sent to the restaurant admin
+    * Functionality can be added later to provide conditions permitting a user to delete a booking
 
 
 ## Bugs and Fixes
 
+# Resolved
 * Images not found when deployed to heroku
     * because some styles sheets and images definitions in the template were not in block tags
     * Also added {% load static %} to all templates due to block end error 
@@ -65,7 +80,10 @@
         * File "/workspace/.pip-modules/lib/python3.8/site-packages/django/contrib/admin/options.py", line 1408, in response_action response = func(self, request, queryset)
     * Adding 'request' as a second parameter solved the issue: ```def confirm_booking(self, request, queryset):```
 * Booking template
-    * after changing confirm field from integer to char in booking model I didn't remove the conditional statement from the booking template used to set confirm 0 to No and 1 to Yes. This displayed inconsistant values. 
+    * after changing confirm field from integer to char in booking model I didn't remove the conditional statement from the booking template used to set confirm 0 to No and 1 to Yes. This displayed inconsistant values.
+
+# Unresolved
+* created date is updating to current date on update of a record
 
 ## Sources and References
 
