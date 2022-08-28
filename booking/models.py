@@ -58,11 +58,11 @@ class Booking(models.Model):
         primary_key=True,
         serialize=False,
         verbose_name='ID')
-    booking_date = models.DateField(auto_now=False)
-    booking_time = models.TimeField(auto_now=False, auto_now_add=False)
+    booking_date = models.DateField()
+    booking_time = models.TimeField()
     created_date = models.DateTimeField(auto_now_add=True)
     last_updated_on = models.DateTimeField(auto_now=True)
-    no_of_guests = models.IntegerField()
+    no_of_guests = models.PositiveIntegerField()
     confirm = models.CharField(max_length=10, default='No')
     login_email = models.CharField(max_length=50)
 
