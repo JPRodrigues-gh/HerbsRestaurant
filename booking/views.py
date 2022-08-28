@@ -10,7 +10,6 @@ from django.contrib import messages
 from .models import Booking
 from .forms import ContactForm, BookingForm
 
-
 default_email = os.environ.get('DEFAULT_FROM_EMAIL')
 
 
@@ -59,11 +58,16 @@ def about(request):
 def view_booking(request):
     """ View of Booking table """
     if request.user.is_authenticated:
-        bookings = Booking.objects.filter(
-            booking_date__gte=datetime.date.today(),
-            login_email=request.user.email).exclude(
-                confirm='cancel').order_by(
-                    'booking_date').all()
+        if request.user.username == 'admin':
+            bookings = Booking.objects.filter(
+            booking_date__gte=datetime.date.today()).order_by(
+                    'booking_date', 'created_date').all()
+        else:
+            bookings = Booking.objects.filter(
+                booking_date__gte=datetime.date.today(),
+                login_email=request.user.email).exclude(
+                    confirm='cancel').order_by(
+                        'booking_date').all()
         context = {
             'bookings': bookings
         }
@@ -79,16 +83,19 @@ def create_booking(request):
             form = form.save(commit=False)
             form.login_email = request.user.email
             form.save()
+            # print(form.data)  # Remove
+            # print(form.cleaned_data)  # Remove
             try:
                 booking_date = request.POST['booking_date']
                 booking_time = request.POST['booking_time']
                 no_of_guests = request.POST['no_of_guests']
-                # login_email = request.user.email
-                # email_from = settings.EMAIL_HOST_USER
-                # subject = "New booking from " + request.user.username
-                # body = "Booking for " + booking_date +
-                # "at" + booking_time + "for" + no_of_guests + "guests"
-                # send_mail(subject, body, email, [email])
+                user = request.user.username  # Remove if not used
+                login_email = request.user.email
+                email_to = settings.EMAIL_HOST_USER
+                subject = "New booking from " + request.user.username
+                body = "Booking for " + booking_date + " at " + booking_time + " for " + no_of_guests + " guests"
+                print(user, subject, body, login_email, email_to)  # Remove
+                send_mail(subject, body, login_email, [email_to])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
             return redirect('booking')
@@ -105,8 +112,6 @@ def update_booking(request, booking_id):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking_id)
         if form.is_valid():
-            # print(form.data)
-            # print(form.cleaned_data)
             if form.cleaned_data.get('confirm') == 'Yes':
                 booking = form.save(commit=False)
                 print("booking", booking)
