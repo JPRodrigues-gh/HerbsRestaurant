@@ -47,7 +47,7 @@ class BookingForm(ModelForm):
             'booking_date',
             'booking_time',
             'no_of_guests',
-            'confirm']
+            'confirmed']
         widgets = {
             'booking_date': DateInput(
                 format=('%Y-%m-%d'),
