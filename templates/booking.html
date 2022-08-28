@@ -20,7 +20,7 @@
                                 <th scope="col">Booking Time</th>
                                 <th scope="col">No of Guests</th>
                                 <th scope="col" class="d-none d-lg-block">Booking Confirmed</th>
-                                <th scope="col" class="d-none d-md-block">        </th>
+                                <th scope="col" class="d-none">Hello</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -31,20 +31,33 @@
                                 <td>{{ booking.booking_date }}</td>
                                 <td>{{ booking.booking_time }}</td>
                                 <td>{{ booking.no_of_guests }}</td>
-                                <td>{{ booking.confirm }}</td>
+                                <td class="d-none d-lg-block">{{ booking.confirm }}</td>
+                            </tr>
+                            <tr>
                                 <td>
-                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" style="width: 100%;" type="submit">
+                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;" type="submit">
                                         <a href="/update/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Change</a>
                                     </button>
-                                
-                                    <button class="btn btn-secondary btn-block btn-sm d-none d-md-block" style="width: 100%;" type="submit">
+                                </td>
+                                <td>
+                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;" type="submit">
                                         <a href="/cancel/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Cancel</a>
                                     </button>
                                 </td>
+                                {% if request.user.username == 'admin' %}
+                                <td>
+                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;" type="submit">
+                                        <a href="/delete/{{ booking.booking_id }}"
+                                            style="text-decoration: none !important;">
+                                            Delete</a>
+                                    </button>
+                                </td>
+                                {% endif %}
+                                <!-- </td> -->
                             </tr>
                             {% endfor %}
                         </tbody>
