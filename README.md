@@ -93,6 +93,10 @@
 - The home page image I is from Pexel and icons_for_free
  - pexels-foodie-factor-551997.avif
  - pexels-rachel-claire-4577396.avif
+ - pexels-nataliya-vaitkevich-5605543.avif
+ - pexels-min-an-1482803.avif
+ - pexels-dana-tentis-1213710.avif
+ - pexels-rajesh-tp-1633578.avif
 - Used convertio.co, compressjpeg.com, cleancss.com, geeksforgeeks.org
 
 ### User account sign up and login functionality
