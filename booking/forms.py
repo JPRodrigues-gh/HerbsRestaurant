@@ -3,6 +3,8 @@ create forms directly from the model itself and
 allow Django to handle all the form validation
 """
 from django.forms import ModelForm
+from django.forms.widgets import DateInput, TimeInput
+
 from .models import Contact, Booking
 
 
@@ -46,6 +48,20 @@ class BookingForm(ModelForm):
             'booking_time',
             'no_of_guests',
             'confirm']
+        widgets = {
+            'booking_date': DateInput(
+                format=('%Y-%m-%d'),
+                attrs={
+                    'placeholder': 'Select a date',
+                    'type': 'date'
+                }),
+            'booking_time': TimeInput(
+                format=('%h:%m'),
+                attrs={
+                    'placeholder': 'Select a time',
+                    'type': 'time',
+                    })
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
