@@ -83,7 +83,6 @@ def create_booking(request):
             form = form.save(commit=False)
             form.login_email = request.user.email
             form.save()
-            print("form", form.table_id)
             try:
                 book_table(request, form.table_id)
                 booking_id = form.booking_id
@@ -120,7 +119,10 @@ def update_booking(request, booking_id):
             if init_table_id != table_id:
                 check_table = get_object_or_404(Table, table_id=table_id)
                 if check_table.open == 1:
-                    return render(request, 'update_booking.html', {'some_flag': True, 'table_id': table_id})
+                    return render(
+                        request,
+                        'update_booking.html',
+                        {'some_flag': True, 'table_id': table_id})
                 elif form.cleaned_data.get('confirm') == 'Yes':
                     booking = form.save(commit=False)
                     booking.confirm = 'No'
