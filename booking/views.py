@@ -119,11 +119,8 @@ def update_booking(request, booking_id):
             table_id = form.cleaned_data.get('table_id')
             if init_table_id != table_id:
                 check_table = get_object_or_404(Table, table_id=table_id)
-                print(check_table.open)
                 if check_table.open == 1:
-                    messages.error(
-                        request, f"Table {table_id} is already booked.")
-                    return render(request, 'update_booking.html', {'some_flag': True})
+                    return render(request, 'update_booking.html', {'some_flag': True, 'table_id': table_id})
                 elif form.cleaned_data.get('confirm') == 'Yes':
                     booking = form.save(commit=False)
                     booking.confirm = 'No'
