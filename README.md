@@ -54,6 +54,7 @@
     * once a change is made to booking, if the booking had already been confirmed by restaurant admin, the status of the booking will be reset from **confirm='Yes'** to **confirm='No'**
 * Tested that the user can delete a record
     * Delete option/button was replaced by the cancel button
+    * On deleting a booking an email is sent to the restaurant admin
 * Tested that the user can cancel a booking
     * When a user cancels a booking **confirm** is set to **'Cancel'**
     * The option to cancel a booking is preferable, as the record will still be visible to the admin
@@ -67,7 +68,7 @@
 # Resolved
 * Images not found when deployed to heroku
     * because some styles sheets and images definitions in the template were not in block tags
-    * Also added {% load static %} to all templates due to block end error 
+    * Also added ```{% load static %}``` to all templates due to block end error 
 * Styling and images not found when deployed
     * installed whitenoise package
 * Fixed variable EMAIL_USE_TLS, was incorrect as EMAIL_USES_TLS (Thanks Ian Meigh for spotting it for me - post in Slack)
@@ -81,6 +82,8 @@
     * Adding 'request' as a second parameter solved the issue: ```def confirm_booking(self, request, queryset):```
 * Booking template
     * after changing confirm field from integer to char in booking model I didn't remove the conditional statement from the booking template used to set confirm 0 to No and 1 to Yes. This displayed inconsistant values.
+* TimeInput - when updating a booking the time was not pulled into the form
+    * Cause: the format on the booking_time field was: ```format=('%h:%m')``` instead of ```format=('%H:%M')```
 
 # Unresolved
 * created date is updating to current date on update of a record
