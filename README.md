@@ -27,7 +27,7 @@
 
 ## Testing
 
-# Django Tests
+### Django Tests
 
 * Created test cases to test the BookingForm. Test file name: test_bookingform.py
     * Tests to confirm that the form is only valid if all required fields are completed
@@ -44,7 +44,7 @@
     * Delete a booking
     * Mark a booking as cancelled
 
-# Manual Testing
+### Manual Testing
 
 * Tested that a user can make a booking
     * An email is sent to the restaurant admin advising of the new booking
@@ -65,7 +65,7 @@
 
 ## Bugs and Fixes
 
-# Resolved
+### Resolved
 * Images not found when deployed to heroku
     * because some styles sheets and images definitions in the template were not in block tags
     * Also added ```{% load static %}``` to all templates due to block end error 
@@ -85,8 +85,19 @@
 * TimeInput - when updating a booking the time was not pulled into the form
     * Cause: the format on the booking_time field was: ```format=('%h:%m')``` instead of ```format=('%H:%M')```
 
-# Unresolved
+### Unresolved
 * created date is updating to current date on update of a record
+
+## Technologies used
+
+* HTML/CSS
+* Javascript
+* Python+Django
+* Sqlite3
+* Postgres
+* Cloudinary
+* GitHub
+* GitPod
 
 ## Sources and References
 
