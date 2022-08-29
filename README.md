@@ -46,6 +46,7 @@
 
 ### Manual Testing
 
+* Tested the Home, Menu, About pages. These all work as expected.
 * Tested that a user can make a booking
     * An email is sent to the restaurant admin advising of the new booking
     * The booking is listed on the user's booking listing
@@ -61,6 +62,26 @@
     * Once the user cancels the booking, the booking is no longer displayed to the user
     * On cancelling a booking an email is sent to the restaurant admin
     * Functionality can be added later to provide conditions permitting a user to delete a booking
+* Tested viewing the OPEN TABLES VIEW.
+    * Only open tables are displayed
+* Tested the contact form
+    * An email is sent to the admin with the content of the content form
+    * The contact table is updated with the content of the content form
+* Login/Sign up works as expected.
+    * New users will receive and email to validate their account
+
+### Validator Testing
+
+* CSS
+    * No errors were returned by W3C validator on bus-casual-styles.css 
+    ![image](https://user-images.githubusercontent.com/22208203/187140164-48d5e8f7-32de-473f-96d3-e237f0843bcc.png)
+    * No errors were returned by W3C validator on styles.css
+    ![image](https://user-images.githubusercontent.com/22208203/187145897-ff347415-2a50-46e0-a06d-f183e324cd0e.png)
+
+* Lighthouse
+  
+    * I ran the lighthouse report to rate my website's performance, accessibility, best practices and SEO.
+    ![image](https://user-images.githubusercontent.com/22208203/187145074-c1669bab-81a5-4405-95e1-7fa70c68c07c.png)
 
 
 ## Bugs and Fixes
@@ -133,3 +154,33 @@
   * https://herbsrestaurant.herokuapp.com/
 
   * The app was deployed using the Heroku App
+
+## The Final Look
+
+### The Home Page
+![image](https://user-images.githubusercontent.com/22208203/187147512-3e4121e6-5a48-4109-8c24-6d92d8924442.png)
+
+### The Menu Page
+![image](https://user-images.githubusercontent.com/22208203/187147936-93f0a91c-f463-4626-bfec-83906fcb320c.png)
+![image](https://user-images.githubusercontent.com/22208203/187148182-b3187975-bb3d-4b89-95bf-b8deac1a3e6e.png)
+![image](https://user-images.githubusercontent.com/22208203/187148284-c1d4707b-5196-4452-89b0-3bd2af0c0ad1.png)
+![image](https://user-images.githubusercontent.com/22208203/187148391-512546e8-82e0-4ebd-a223-a1fcdc323d04.png)
+
+### The About Page
+![image](https://user-images.githubusercontent.com/22208203/187148578-49c12275-c572-4aee-885e-c8ba058d0df3.png)
+![image](https://user-images.githubusercontent.com/22208203/187148630-8ce52fe2-9f3c-43fa-bef4-1512dd41ae57.png)
+
+### The Contact Form
+![image](https://user-images.githubusercontent.com/22208203/187148751-48b34441-0aff-4a6f-affe-39d2779ea509.png)
+
+### The Bookings Page
+![image](https://user-images.githubusercontent.com/22208203/187148887-99e629df-7d09-498c-a92f-aa0f34d5926c.png)
+
+#### Make a Booking
+![image](https://user-images.githubusercontent.com/22208203/187148997-7341a58d-66d2-4fd2-a521-44dc3cbfe3f5.png)
+
+#### Change a Boooking
+![image](https://user-images.githubusercontent.com/22208203/187149122-1a12c503-ff73-4125-94e3-08ad1389beb6.png)
+
+#### View Open Tables
+![image](https://user-images.githubusercontent.com/22208203/187149291-8565b82b-fad4-4a62-8daf-eed89a1c4cd4.png)
