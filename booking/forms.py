@@ -47,6 +47,7 @@ class BookingForm(ModelForm):
             'booking_date',
             'booking_time',
             'no_of_guests',
+            'table_id',
             'confirm']
         labels = {
             'confirm': 'Confirmed'
@@ -59,10 +60,9 @@ class BookingForm(ModelForm):
                     'type': 'date'
                 }),
             'booking_time': TimeInput(
-                format=('%h:%m'),
+                format=('%H:%M'),
                 attrs={
-                    'placeholder': 'Select a time',
-                    'type': 'time',
+                    'type': 'time'
                     })
         }
 

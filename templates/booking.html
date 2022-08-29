@@ -11,38 +11,39 @@
                         <h4 class="section-heading mb-4">Welcome to our Bookings Manager</h4>
                     </div>
                     {% if user.is_authenticated %}
-                    <table class="table col-xl-11 col-lg-10 col-md-9 mx-auto">
+                    <table class="table col-xl-11 col-lg-10 col-md-9 mx-auto table-borderless">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">Booking Id</th>
                                 <th scope="col">Booking Date</th>
                                 <th scope="col">Booking Time</th>
                                 <th scope="col">No of Guests</th>
+                                <th scope="col">Table Number</th>
                                 <th scope="col" class="d-none d-lg-block">Booking Confirmed</th>
-                                <th scope="col" class="d-none">Hello</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for booking in bookings %}
                             <tr>
-                                <th scope="row">{{ forloop.counter }}</th>
                                 <td>{{ booking.booking_id }}</td>
                                 <td>{{ booking.booking_date }}</td>
                                 <td>{{ booking.booking_time }}</td>
                                 <td>{{ booking.no_of_guests }}</td>
+                                <td>{{ booking.table_id }}</td>
                                 <td class="d-none d-lg-block">{{ booking.confirm }}</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;" type="submit">
+                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;"
+                                        type="submit">
                                         <a href="/update/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Change</a>
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;" type="submit">
+                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;"
+                                        type="submit">
                                         <a href="/cancel/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Cancel</a>
@@ -50,20 +51,24 @@
                                 </td>
                                 {% if request.user.username == 'admin' %}
                                 <td>
-                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;" type="submit">
+                                    <button class="btn btn-secondary btn-block btn-sm" style="width: 100%;"
+                                        type="submit">
                                         <a href="/delete/{{ booking.booking_id }}"
                                             style="text-decoration: none !important;">
                                             Delete</a>
                                     </button>
                                 </td>
                                 {% endif %}
-                                <!-- </td> -->
                             </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    <hr class="bg-danger border-5 border-top border-secondary">
                     <button class="btn btn-secondary btn-sm" type="submit"><a href="/create"
                             style="text-decoration: none !important;">Make a Booking</a>
+                    </button>
+                    <button class="btn btn-secondary btn-sm" type="submit"><a href="/table"
+                            style="text-decoration: none !important;">View Open Tables</a>
                     </button>
                     {% else %}
                     <div class="text-center">

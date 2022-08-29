@@ -1,7 +1,5 @@
 """ models.py contains models for the DB objects"""
 from django.db import models
-# from django.contrib.auth.models import User
-# from cloudinary.models import CloudinaryField
 
 OPEN = ((0, "Open"), (1, "Booked"))
 CONFIRM = ((0, "No"), (1, "Yes"))
@@ -23,9 +21,9 @@ class Table(models.Model):
     def __str__(self):
         return str(self.table_id)
 
-    # return count of booked tables
-    # def number_of_open(self):
-    #     return self.open.filter(1).count()
+    def number_of_open(self):
+        """ Fetch a count of open tables """
+        return self.open.filter(1).count()
 
 
 class User(models.Model):

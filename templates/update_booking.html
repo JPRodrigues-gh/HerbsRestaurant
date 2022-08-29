@@ -14,8 +14,16 @@
                     </div>
                     <form class="text-center" method="post">
                         {% csrf_token %}
+                        {% if some_flag %}
+                        <div id="some_flag" title="Some Flag">
+                            <p>Table {{ form.table_id }} is already booked.</p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" type="submit">Close</button>
+                        {% else %}
                         {{ form.as_p }}
+                        {{ form.booking_id}}
                         <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
+                        {% endif %}
                     </form>
                 </div>
             </div>

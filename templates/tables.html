@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <section class="page-section about-heading">
+            <div class="col-xl-5 col-lg-6 mx-auto">
+                <div class="bg-faded rounded p-3">
+                    <div class="text-center">
+                        <h4 class="section-heading mb-4">Open Tables View</h4>
+                    </div>
+                    <div class="text-center">
+                        <p class="mb-0">
+                            NB. The letter prefix on table number represents a zone. For multi-table bookings, please
+                            book in the same zone please.
+                        </p>
+                        <p>If this is not possible please <a href="/contact">contact us.</a>
+                        </p>
+                    </div>
+                    <table class="table col-xl-11 col-lg-10 col-md-9 mx-auto">
+                        <thead>
+                            <tr>
+                                <th scope="col">Table Number</th>
+                                <th scope="col">Places</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for table in tables %}
+                            <tr>
+                                <td>{{ table.table_id }}</td>
+                                <td>{{ table.no_of_places }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-secondary btn-sm" type="submit"><a href="/booking"
+                            style="text-decoration: none !important;">Return to Booking Manager</a>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock content %}

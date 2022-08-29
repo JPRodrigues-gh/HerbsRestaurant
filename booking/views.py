@@ -7,7 +7,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
-from .models import Booking
+from .models import Booking, Table
 from .forms import ContactForm, BookingForm
 
 default_email = os.environ.get('DEFAULT_FROM_EMAIL')
@@ -60,13 +60,13 @@ def view_booking(request):
     if request.user.is_authenticated:
         if request.user.username == 'admin':
             bookings = Booking.objects.filter(
-            booking_date__gte=datetime.date.today()).order_by(
+                booking_date__gte=datetime.date.today()).order_by(
                     'booking_date', 'created_date').all()
         else:
             bookings = Booking.objects.filter(
                 booking_date__gte=datetime.date.today(),
                 login_email=request.user.email).exclude(
-                    confirm='cancel').order_by(
+                    confirm='Cancel').order_by(
                         'booking_date').all()
         context = {
             'bookings': bookings
@@ -83,18 +83,21 @@ def create_booking(request):
             form = form.save(commit=False)
             form.login_email = request.user.email
             form.save()
-            # print(form.data)  # Remove
-            # print(form.cleaned_data)  # Remove
+            print("form", form.table_id)
             try:
+                book_table(request, form.table_id)
+                booking_id = form.booking_id
                 booking_date = request.POST['booking_date']
                 booking_time = request.POST['booking_time']
                 no_of_guests = request.POST['no_of_guests']
-                user = request.user.username  # Remove if not used
+                table_id = request.POST['table_id']
+                user = request.user.username
                 login_email = request.user.email
                 email_to = settings.EMAIL_HOST_USER
-                subject = "New booking from " + request.user.username
-                body = "Booking for " + booking_date + " at " + booking_time + " for " + no_of_guests + " guests"
-                print(user, subject, body, login_email, email_to)  # Remove
+                subject = "New booking from " + user
+                body = (f"{user} made booking {booking_id} for "
+                        f"{booking_date} at {booking_time} for "
+                        f"{no_of_guests} guests, on table {table_id}")
                 send_mail(subject, body, login_email, [email_to])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
@@ -108,19 +111,44 @@ def create_booking(request):
 
 def update_booking(request, booking_id):
     """Provide a means for users to change bookings"""
-    booking_id = get_object_or_404(Booking, booking_id=booking_id)
+    booking = get_object_or_404(Booking, booking_id=booking_id)
+    init_table_id = booking.table_id
     if request.method == 'POST':
-        form = BookingForm(request.POST, instance=booking_id)
+        form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            if form.cleaned_data.get('confirm') == 'Yes':
-                booking = form.save(commit=False)
-                print("booking", booking)
-                booking.confirm = 'No'
-                booking.save()
-            else:
-                form.save()
-            return redirect('booking')
-    form = BookingForm(instance=booking_id)
+            table_id = form.cleaned_data.get('table_id')
+            if init_table_id != table_id:
+                check_table = get_object_or_404(Table, table_id=table_id)
+                print(check_table.open)
+                if check_table.open == 1:
+                    messages.error(
+                        request, f"Table {table_id} is already booked.")
+                    return render(request, 'update_booking.html', {'some_flag': True})
+                elif form.cleaned_data.get('confirm') == 'Yes':
+                    booking = form.save(commit=False)
+                    booking.confirm = 'No'
+                    booking.save()
+                else:
+                    form.save()
+                if init_table_id != table_id:
+                    open_table(request, init_table_id)
+                    book_table(request, table_id)
+                try:
+                    booking_date = form.cleaned_data.get('booking_date')
+                    booking_time = form.cleaned_data.get('booking_time')
+                    no_of_guests = form.cleaned_data.get('no_of_guests')
+                    user = request.user.username
+                    login_email = request.user.email
+                    email_to = settings.EMAIL_HOST_USER
+                    subject = "Booking change from " + user
+                    body = (f"{user} has changed booking {booking_id} for "
+                            f"{booking_date} at {booking_time} for "
+                            f"{no_of_guests} guests, on table {table_id}")
+                    send_mail(subject, body, login_email, [email_to])
+                except BadHeaderError:
+                    return HttpResponse('Invalid header found.')
+                return redirect('booking')
+    form = BookingForm(instance=booking)
     context = {
         'form': form
     }
@@ -131,6 +159,22 @@ def delete_booking(request, booking_id):
     """Provide a means for users to delete bookings"""
     booking = get_object_or_404(Booking, booking_id=booking_id)
     booking.delete()
+    try:
+        open_table(request, booking.table_id)
+        booking_date = booking.booking_date
+        booking_time = booking.booking_time
+        no_of_guests = booking.no_of_guests
+        table_id = booking.table_id
+        user = request.user.username
+        login_email = request.user.email
+        email_to = settings.EMAIL_HOST_USER
+        subject = "Booking deleted by " + user
+        body = (f"{user} has deleted booking {booking_id} for "
+                f"{booking_date} at {booking_time} for "
+                f"{no_of_guests} guests, on table {table_id}")
+        send_mail(subject, body, login_email, [email_to])
+    except BadHeaderError:
+        return HttpResponse('Invalid header found.')
     return redirect('booking')
 
 
@@ -139,4 +183,46 @@ def cancel_booking(request, booking_id):
     booking = get_object_or_404(Booking, booking_id=booking_id)
     booking.confirm = 'Cancel'
     booking.save()
+    try:
+        open_table(request, booking.table_id)
+        booking_date = booking.booking_date
+        booking_time = booking.booking_time
+        no_of_guests = booking.no_of_guests
+        table_id = booking.table_id
+        user = request.user.username
+        login_email = request.user.email
+        email_to = settings.EMAIL_HOST_USER
+        subject = "Booking cancellation from " + user
+        body = (f"{user} has cancelled booking {booking_id} for "
+                f"{booking_date} at {booking_time} for "
+                f"{no_of_guests} guests, on table {table_id}")
+        send_mail(subject, body, login_email, [email_to])
+    except BadHeaderError:
+        return HttpResponse('Invalid header found.')
+    return redirect('booking')
+
+
+# The Tables Form section
+def view_tables(request):
+    """ View of Table table """
+    tables = Table.objects.filter(open=0).order_by('table_id').all()
+    context = {
+        'tables': tables
+    }
+    return render(request, 'tables.html', context)
+
+
+def book_table(request, table_id):
+    """ This function sets open to 1 (booked) """
+    table = get_object_or_404(Table, table_id=table_id)
+    table.open = 1
+    table.save()
+    return redirect('booking')
+
+
+def open_table(request, table_id):
+    """ This function sets open to 0 (open) """
+    table = get_object_or_404(Table, table_id=table_id)
+    table.open = 0
+    table.save()
     return redirect('booking')
