@@ -12,11 +12,19 @@
                     <div class="text-center">
                         <h4 class="section-heading mb-4">Booking Form</h4>
                     </div>
+                    {% if user.is_authenticated %}
                     <form class="enquiry-form text-center" method="post">
                         {% csrf_token %}
                         {{ form.as_p }}
                         <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
                     </form>
+                    {% else %}
+                    <div class="text-center">
+                        <p class="mb-0">
+                            In order to view or make bookings you must first log in.
+                        </p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>
