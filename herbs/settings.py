@@ -221,10 +221,12 @@ MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'CLOUDINARY_CLOUD_NAME',
-    'API_KEY': 'CLOUDINARY_API_KEY',
-    'API_SECRET': 'CLOUDINARY_API_SECRET'
+    'CLOUD_NAME': os.environ["CLOUDINARY_CLOUD_NAME"],
+    'API_KEY': os.environ["CLOUDINARY_API_KEY"],
+    'API_SECRET': os.environ["CLOUDINARY_API_SECRET"]
 }
+
+CLOUDINARY_URL = CLOUDINARY_URL
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
