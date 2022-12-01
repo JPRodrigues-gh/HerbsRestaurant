@@ -123,30 +123,32 @@ def update_booking(request, booking_id):
                         request,
                         'update_booking.html',
                         {'some_flag': True, 'table_id': table_id})
-                elif form.cleaned_data.get('confirm') == 'Yes':
-                    booking = form.save(commit=False)
-                    booking.confirm = 'No'
-                    booking.save()
-                else:
-                    form.save()
-                if init_table_id != table_id:
-                    open_table(request, init_table_id)
-                    book_table(request, table_id)
-                try:
-                    booking_date = form.cleaned_data.get('booking_date')
-                    booking_time = form.cleaned_data.get('booking_time')
-                    no_of_guests = form.cleaned_data.get('no_of_guests')
-                    user = request.user.username
-                    login_email = request.user.email
-                    email_to = settings.EMAIL_HOST_USER
-                    subject = "Booking change from " + user
-                    body = (f"{user} has changed booking {booking_id} for "
-                            f"{booking_date} at {booking_time} for "
-                            f"{no_of_guests} guests, on table {table_id}")
-                    send_mail(subject, body, login_email, [email_to])
-                except BadHeaderError:
-                    return HttpResponse('Invalid header found.')
-                return redirect('booking')
+                        
+            if form.cleaned_data.get('confirm') == 'Yes':
+                booking = form.save(commit=False)
+                booking.confirm = 'No'
+                booking.save()
+            else:
+                form.save()
+            
+            if init_table_id != table_id:
+                open_table(request, init_table_id)
+                book_table(request, table_id)
+            try:
+                booking_date = form.cleaned_data.get('booking_date')
+                booking_time = form.cleaned_data.get('booking_time')
+                no_of_guests = form.cleaned_data.get('no_of_guests')
+                user = request.user.username
+                login_email = request.user.email
+                email_to = settings.EMAIL_HOST_USER
+                subject = "Booking change from " + user
+                body = (f"{user} has changed booking {booking_id} for "
+                        f"{booking_date} at {booking_time} for "
+                        f"{no_of_guests} guests, on table {table_id}")
+                send_mail(subject, body, login_email, [email_to])
+            except BadHeaderError:
+                return HttpResponse('Invalid header found.')
+            return redirect('booking')
     form = BookingForm(instance=booking)
     context = {
         'form': form
