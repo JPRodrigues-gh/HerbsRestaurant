@@ -12,6 +12,7 @@
                     <div class="text-center">
                         <h4 class="section-heading mb-4">Booking Change Form</h4>
                     </div>
+                    {% if user.is_authenticated %}
                     <form class="text-center" method="post">
                         {% csrf_token %}
                         {% if some_flag %}
@@ -24,6 +25,13 @@
                         <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
                         {% endif %}
                     </form>
+                    {% else %}
+                    <div class="text-center">
+                        <p class="mb-0">
+                            In order to view or change bookings you must first log in.
+                        </p>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </section>
