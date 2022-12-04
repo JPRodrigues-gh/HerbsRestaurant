@@ -11,15 +11,18 @@ from .models import Booking, Table
 from .forms import ContactForm, BookingForm
 
 default_email = os.environ.get('DEFAULT_FROM_EMAIL')
+success_message = os.environ.get('SUCCESS_MESSAGE')
 
 
 def index(request):
     """ Render the home page """
     return render(request, 'index.html')
 
-def error(request):
-    """ Render the error page """
-    return render(request, 'error.html')
+
+def messenger(request, message):
+    """ Render the messenger page """
+    return render(request, 'messenger.html', message)
+
 
 def menu(request):
     """ Render the menu page """
@@ -86,7 +89,6 @@ def create_booking(request):
             # verify valid date
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
-
             if booking_date == datetime.date.today():
                 msg1 = "Online bookings only for future dates. "
                 msg2 = "Please call the restaurant to book for today."
@@ -129,19 +131,12 @@ def create_booking(request):
                            }
                 return render(request, 'create_booking.html', message)
 
-            # save the form
-            form = form.save(commit=False)
-            form.login_email = request.user.email
-            form.save()
-            render(
-                   request,
-                   'booking.html',
-                   {'booked': True,
-                    'message': 'Booking successful!'
-                    }
-                   )
-
             try:
+                # save the form
+                form = form.save(commit=False)
+                form.login_email = request.user.email
+                form.save()
+
                 book_table(request, form.table_id)
                 booking_id = form.booking_id
                 booking_date = request.POST['booking_date']
@@ -158,7 +153,16 @@ def create_booking(request):
                 send_mail(subject, body, login_email, [email_to])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
+
+            if success_message == 'ON':
+                return render(
+                              request,
+                              'create_booking.html',
+                              {'message': 'Booking successful!'}
+                              )
+
             return redirect('booking')
+
     form = BookingForm()
     context = {
         'form': form
@@ -215,7 +219,6 @@ def update_booking(request, booking_id):
                                        }
                                       )
                 except Table.DoesNotExist:
-                    print("Check 1")
                     message = {
                                'message': "Enter a valid table id."
                                }
@@ -231,6 +234,7 @@ def update_booking(request, booking_id):
             if init_table_id != table_id:
                 open_table(request, init_table_id)
                 book_table(request, table_id)
+
             try:
                 booking_date = form.cleaned_data.get('booking_date')
                 booking_time = form.cleaned_data.get('booking_time')
@@ -245,7 +249,16 @@ def update_booking(request, booking_id):
                 send_mail(subject, body, login_email, [email_to])
             except BadHeaderError:
                 return HttpResponse('Invalid header found.')
+
+            if success_message == 'ON':
+                return render(
+                              request,
+                              'update_booking.html',
+                              {'message': 'Booking change successful!'}
+                              )
+
             return redirect('booking')
+
     form = BookingForm(instance=booking)
     context = {
         'form': form
