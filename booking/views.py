@@ -83,8 +83,38 @@ def create_booking(request):
             # verify valid date
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
-            if not valid_dt(request, booking_date, booking_time):
-                return render(request, 'create_booking.html', context)
+            if booking_date == datetime.date.today():
+                msg1 = "Online bookings only for future dates. "
+                msg2 = "Please call the restaurant to book for today."
+                error_message = f"{msg1}\n{msg2}"
+                return render(
+                              request,
+                              'create_booking.html',
+                              {'dt_today': True,
+                               'error_message': error_message
+                               }
+                              )
+            elif booking_date < datetime.date.today():
+                tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+                msg1 = "Please enter a valid date. "
+                msg2 = f"Online bookings only from {tomorrow}."
+                error_message = f"{msg1}\n{msg2}"
+                return render(
+                              request,
+                              'create_booking.html',
+                              {'dt_yday': True,
+                               'error_message': error_message
+                               }
+                              )
+
+            table_id = form.cleaned_data.get('table_id')
+            if init_table_id != table_id:
+                check_table = get_object_or_404(Table, table_id=table_id)
+                if check_table.open == 1:
+                    return render(
+                        request,
+                        'create_booking.html',
+                        {'some_flag': True, 'table_id': table_id})
 
             # save the form
             form = form.save(commit=False)
