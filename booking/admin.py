@@ -9,6 +9,11 @@ class TableAdmin(admin.ModelAdmin):
     """ Add filter functionality to Table table on open and table_size"""
     list_display = ('table_id', 'no_of_places', 'open', 'table_size',)
     list_filter = ('open', 'table_size',)
+    actions = ['open_table']
+
+    def open_table(self, request, queryset):
+        """ Admin can open the table """
+        queryset.update(open=0)
 
 
 @admin.register(User)
