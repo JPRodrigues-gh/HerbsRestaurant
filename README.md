@@ -155,7 +155,7 @@
 
 ### Heroku requirements
 * The App live link is:
-  * https://herbsrestaurant.herokuapp.com/
+  * https://herbsrestaurantv2.herokuapp.com/ 
 
 * The project was deployed to Heroku using the following steps.
 
