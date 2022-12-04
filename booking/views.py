@@ -80,6 +80,13 @@ def create_booking(request):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
+            # verify valid date
+            booking_date = form.cleaned_data.get('booking_date')
+            booking_time = form.cleaned_data.get('booking_time')
+            if not valid_dt(request, booking_date, booking_time):
+                return render(request, 'create_booking.html', context)
+
+            # save the form
             form = form.save(commit=False)
             form.login_email = request.user.email
             form.save()
@@ -115,6 +122,33 @@ def update_booking(request, booking_id):
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
+            # verify valid date
+            booking_date = form.cleaned_data.get('booking_date')
+            booking_time = form.cleaned_data.get('booking_time')
+            if booking_date == datetime.date.today():
+                msg1 = "Online bookings only for future dates. "
+                msg2 = "Please call the restaurant to book for today."
+                error_message = f"{msg1}\n{msg2}"
+                return render(
+                              request,
+                              'update_booking.html',
+                              {'dt_today': True,
+                               'error_message': error_message
+                               }
+                              )
+            elif booking_date < datetime.date.today():
+                tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+                msg1 = "Please enter a valid date. "
+                msg2 = f"Online bookings only from {tomorrow}."
+                error_message = f"{msg1}\n{msg2}"
+                return render(
+                              request,
+                              'update_booking.html',
+                              {'dt_yday': True,
+                               'error_message': error_message
+                               }
+                              )
+
             table_id = form.cleaned_data.get('table_id')
             if init_table_id != table_id:
                 check_table = get_object_or_404(Table, table_id=table_id)
@@ -123,14 +157,14 @@ def update_booking(request, booking_id):
                         request,
                         'update_booking.html',
                         {'some_flag': True, 'table_id': table_id})
-                        
+
             if form.cleaned_data.get('confirm') == 'Yes':
                 booking = form.save(commit=False)
                 booking.confirm = 'No'
                 booking.save()
             else:
                 form.save()
-            
+
             if init_table_id != table_id:
                 open_table(request, init_table_id)
                 book_table(request, table_id)
@@ -141,7 +175,7 @@ def update_booking(request, booking_id):
                 user = request.user.username
                 login_email = request.user.email
                 email_to = settings.EMAIL_HOST_USER
-                subject = "Booking change from " + user
+                subject = "Booking change message from " + user
                 body = (f"{user} has changed booking {booking_id} for "
                         f"{booking_date} at {booking_time} for "
                         f"{no_of_guests} guests, on table {table_id}")
@@ -227,3 +261,28 @@ def open_table(request, table_id):
     table.open = 0
     table.save()
     return redirect('booking')
+
+
+def valid_dt(request, booking_date, booking_time):
+    if booking_date == datetime.date.today():
+        error_message = "Please call the restaurant to book for today!"
+        print("dt_today")
+        return render(
+                      request,
+                      'update_booking.html',
+                      {'dt_today': True,
+                       'error_message': error_message
+                       }
+                      )
+    elif booking_date < datetime.date.today():
+        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        error_message = f"Please enter a valid date, starting from {tomorrow}"
+        print("dt_yday")
+        return render(
+                      request,
+                      'update_booking.html',
+                      {'dt_yday': True,
+                       'error_message': error_message
+                       }
+                      )
+    return True

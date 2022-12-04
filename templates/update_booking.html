@@ -15,8 +15,18 @@
                     {% if user.is_authenticated %}
                     <form class="text-center" method="post">
                         {% csrf_token %}
-                        {% if some_flag %}
-                        <div id="some_flag" title="Some Flag">
+                        {% if dt_today %}
+                        <div id="dt_today">
+                            <p><strong>{{ error_message }}</strong></p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" type="submit">Close</button>
+                        {% elif dt_yday %}
+                        <div id="dt_yday">
+                            <p><strong>{{ error_message }}</strong></p>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" type="submit">Close</button>
+                        {% elif some_flag %}
+                        <div id="some_flag">
                             <p>Table <strong>{{ table_id }}</strong> is already booked.</p>
                         </div>
                         <button class="btn btn-secondary btn-sm" type="submit">Close</button>
