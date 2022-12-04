@@ -4,7 +4,7 @@ import datetime
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from .models import Booking, Table
@@ -17,6 +17,9 @@ def index(request):
     """ Render the home page """
     return render(request, 'index.html')
 
+def error(request):
+    """ Render the error page """
+    return render(request, 'error.html')
 
 def menu(request):
     """ Render the menu page """
@@ -108,19 +111,39 @@ def create_booking(request):
                                }
                               )
 
+            # Verify that the table is not already booked
             table_id = form.cleaned_data.get('table_id')
-            check_table = get_object_or_404(Table, table_id=table_id)
-            if check_table.open == 1:
-                return render(
-                    request,
-                    'create_booking.html',
-                    {'some_flag': True, 'table_id': table_id})
+            try:
+                check_table = Table.objects.get(table_id=table_id)
+                if check_table.open == 1:
+                    print("Check 2")
+                    print(check_table)
+                    return render(
+                                  request,
+                                  'create_booking.html',
+                                  {'some_flag': True,
+                                   'table_id': table_id
+                                   }
+                                  )
+            except Table.DoesNotExist:
+                print("Check 1")
+                message = {
+                           'message': "Enter a valid table id."
+                           }
+                return render(request, 'create_booking.html', message)
 
             # save the form
             form = form.save(commit=False)
             form.login_email = request.user.email
             form.save()
-            messages.success(request, 'Booking successful!')
+            # messages.success(request, 'Booking successful!')
+            render(
+                   request,
+                   'booking.html',
+                   {'booked': True,
+                    'message': 'Booking successful!'
+                    }
+                   )
 
             try:
                 book_table(request, form.table_id)
@@ -181,14 +204,18 @@ def update_booking(request, booking_id):
                                }
                               )
 
+            # Verify that the table is not already booked
             table_id = form.cleaned_data.get('table_id')
             if init_table_id != table_id:
                 check_table = get_object_or_404(Table, table_id=table_id)
                 if check_table.open == 1:
                     return render(
-                        request,
-                        'update_booking.html',
-                        {'some_flag': True, 'table_id': table_id})
+                                  request,
+                                  'update_booking.html',
+                                  {'some_flag': True,
+                                   'table_id': table_id
+                                   }
+                                  )
 
             if form.cleaned_data.get('confirm') == 'Yes':
                 booking = form.save(commit=False)
