@@ -5,46 +5,47 @@
 {% load crispy_forms_tags %}
 
 <div class="container">
-    <div class="row">
-        <section class="page-section about-heading">
-            <div class="col-xl-5 col-lg-6 mx-auto">
-                <div class="bg-faded rounded p-3">
-                    <div class="text-center">
-                        <h4 class="section-heading mb-4">Booking Change Form</h4>
-                    </div>
-                    {% if user.is_authenticated %}
-                    <form class="text-center" method="post">
-                        {% csrf_token %}
-                        {% if dt_today %}
-                        <div id="dt_today">
-                            <p><strong>{{ error_message }}</strong></p>
-                        </div>
-                        <button class="btn btn-secondary btn-sm" type="submit">Close</button>
-                        {% elif dt_yday %}
-                        <div id="dt_yday">
-                            <p><strong>{{ error_message }}</strong></p>
-                        </div>
-                        <button class="btn btn-secondary btn-sm" type="submit">Close</button>
-                        {% elif some_flag %}
-                        <div id="some_flag">
-                            <p>Table <strong>{{ table_id }}</strong> is already booked.</p>
-                        </div>
-                        <button class="btn btn-secondary btn-sm" type="submit">Close</button>
-                        {% else %}
-                        {{ form.as_p }}
-                        <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
-                        {% endif %}
-                    </form>
-                    {% else %}
-                    <div class="text-center">
-                        <p class="mb-0">
-                            In order to view or change bookings you must first log in.
-                        </p>
-                    </div>
-                    {% endif %}
+  <div class="row">
+    <section class="page-section about-heading">
+      <div class="col-xl-5 col-lg-6 mx-auto">
+        <div class="bg-faded rounded p-3">
+          <div class="text-center">
+            <h4 class="section-heading mb-4">Booking Change Form</h4>
+          </div>
+          {% if user.is_authenticated %}
+            <form class="text-center" method="post">
+              {% csrf_token %}
+              {% if dt_today %}
+                <div id="dt_today">
+                  <p><strong>{{ error_message }}</strong></p>
                 </div>
+                <button class="btn btn-secondary btn-sm" type="submit">Close</button>
+              {% elif dt_yday %}
+                <div id="dt_yday">
+                  <p><strong>{{ error_message }}</strong></p>
+                </div>
+                <button class="btn btn-secondary btn-sm" type="submit">Close</button>
+              {% elif some_flag %}
+                <div id="some_flag">
+                  <p>Table <strong>{{ table_id }}</strong> is already booked.</p>
+                </div>
+                <button class="btn btn-secondary btn-sm" type="submit">Close</button>
+              {% else %}
+                {{ form.as_p }}
+                <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
+              {% endif %}
+            </form>
+          {% else %}
+            <div class="text-center">
+              <p class="mb-0">
+                In order to view or change bookings you must first log in.
+              </p>
             </div>
-        </section>
-    </div>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
 </div>
+
 {% endblock%}
