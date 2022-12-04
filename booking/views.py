@@ -116,8 +116,6 @@ def create_booking(request):
             try:
                 check_table = Table.objects.get(table_id=table_id)
                 if check_table.open == 1:
-                    print("Check 2")
-                    print(check_table)
                     return render(
                                   request,
                                   'create_booking.html',
@@ -126,7 +124,6 @@ def create_booking(request):
                                    }
                                   )
             except Table.DoesNotExist:
-                print("Check 1")
                 message = {
                            'message': "Enter a valid table id."
                            }
@@ -136,7 +133,6 @@ def create_booking(request):
             form = form.save(commit=False)
             form.login_email = request.user.email
             form.save()
-            # messages.success(request, 'Booking successful!')
             render(
                    request,
                    'booking.html',
@@ -207,15 +203,23 @@ def update_booking(request, booking_id):
             # Verify that the table is not already booked
             table_id = form.cleaned_data.get('table_id')
             if init_table_id != table_id:
-                check_table = get_object_or_404(Table, table_id=table_id)
-                if check_table.open == 1:
-                    return render(
-                                  request,
-                                  'update_booking.html',
-                                  {'some_flag': True,
-                                   'table_id': table_id
-                                   }
-                                  )
+                # check_table = get_object_or_404(Table, table_id=table_id)
+                try:
+                    check_table = Table.objects.get(table_id=table_id)
+                    if check_table.open == 1:
+                        return render(
+                                      request,
+                                      'update_booking.html',
+                                      {'some_flag': True,
+                                       'table_id': table_id
+                                       }
+                                      )
+                except Table.DoesNotExist:
+                    print("Check 1")
+                    message = {
+                               'message': "Enter a valid table id."
+                               }
+                    return render(request, 'update_booking.html', message)
 
             if form.cleaned_data.get('confirm') == 'Yes':
                 booking = form.save(commit=False)
