@@ -11,6 +11,7 @@
                         <h4 class="section-heading mb-4">Welcome to our Bookings Manager</h4>
                     </div>
                     {% if user.is_authenticated %}
+                    {% include 'messenger.html' %}
                     <table class="table col-xl-11 col-lg-10 col-md-9 mx-auto table-borderless">
                         <thead>
                             <tr>

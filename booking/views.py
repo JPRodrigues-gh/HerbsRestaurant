@@ -160,7 +160,8 @@ def create_booking(request):
                               'create_booking.html',
                               {'message': 'Booking successful!'}
                               )
-
+            else:
+                messages.success(request, 'Booking successful!')
             return redirect('booking')
 
     form = BookingForm()
@@ -256,7 +257,8 @@ def update_booking(request, booking_id):
                               'update_booking.html',
                               {'message': 'Booking change successful!'}
                               )
-
+            else:
+               messages.success(request, 'Booking change successful!')
             return redirect('booking')
 
     form = BookingForm(instance=booking)
@@ -286,8 +288,9 @@ def delete_booking(request, booking_id):
         send_mail(subject, body, login_email, [email_to])
     except BadHeaderError:
         return HttpResponse('Invalid header found.')
-    return redirect('booking')
 
+    messages.success(request, 'Booking deleted!')
+    return redirect('booking')
 
 def cancel_booking(request, booking_id):
     """Provide a means for users to cancel bookings"""
@@ -310,6 +313,8 @@ def cancel_booking(request, booking_id):
         send_mail(subject, body, login_email, [email_to])
     except BadHeaderError:
         return HttpResponse('Invalid header found.')
+
+    messages.success(request, 'Booking cancelled!')
     return redirect('booking')
 
 
