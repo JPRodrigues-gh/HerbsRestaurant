@@ -15,27 +15,19 @@
           {% if user.is_authenticated %}
             <form class="enquiry-form text-center" method="post">
               {% csrf_token %}
-              {% if dt_today %}
-                <div id="dt_today">
+              {% if err_msg %}
+                <div id="err_msg">
                   <p><strong>{{ error_message }}</strong></p>
-                </div>
-                <button class="btn btn-secondary btn-sm" type="submit">Close</button>
-              {% elif dt_yday %}
-                <div id="dt_yday">
-                  <p><strong>{{ error_message }}</strong></p>
-                </div>
-                <button class="btn btn-secondary btn-sm" type="submit">Close</button>
-              {% elif some_flag %}
-                <div id="some_flag">
-                  <p>Table <strong>{{ table_id }}</strong> is already booked.</p>
                 </div>
                 <button class="btn btn-secondary btn-sm" type="submit">Close</button>
               {% else %}
                 {{ form.as_p }}
-                {% if message %}
-                  <div id="message">
-                    <p><strong>{{ message }}</strong></p>
-                  </div>
+                {% if messages %}
+                  <ul class="messages">
+                  {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                  {% endfor %}
+                  </ul>
                   <button class="btn btn-secondary btn-sm" type="submit">Close</button>
                 {% else %}
                   <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
