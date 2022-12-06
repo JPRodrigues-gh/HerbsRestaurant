@@ -18,7 +18,7 @@
                                 <th scope="col">Booking Id</th>
                                 <th scope="col">Booking Date</th>
                                 <th scope="col">Booking Time</th>
-                                <th scope="col">No of Guests</th>
+                                <th scope="col" class="d-none d-lg-block">No of Guests</th>
                                 <th scope="col">Table Number</th>
                                 <th scope="col" class="d-none d-lg-block">Booking Confirmed</th>
                             </tr>
@@ -29,7 +29,7 @@
                                 <td>{{ booking.booking_id }}</td>
                                 <td>{{ booking.booking_date }}</td>
                                 <td>{{ booking.booking_time }}</td>
-                                <td>{{ booking.no_of_guests }}</td>
+                                <td class="d-none d-lg-block">{{ booking.no_of_guests }}</td>
                                 <td>{{ booking.table_id }}</td>
                                 <td class="d-none d-lg-block">{{ booking.confirm }}</td>
                             </tr>
