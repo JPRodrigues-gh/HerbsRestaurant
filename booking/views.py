@@ -4,7 +4,7 @@ import datetime
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse
 from django.core.mail import send_mail, BadHeaderError
 from django.contrib import messages
 from .models import Booking, Table
@@ -63,7 +63,21 @@ def about(request):
 # The Booking Form section
 def view_booking(request):
     """ View of Booking table """
+    # print(list(messages.get_messages(request)))
+    # messages.success(request, '')
+
+    # storage = messages.get_messages(request)
+    # for message in storage:
+    #     print(message)
+    #     storage.used = True
+    # storage.used = False
+
     if request.user.is_authenticated:
+        storage = messages.get_messages(request)
+        for message in storage:
+            print(message)
+            messages.success(request, '')
+            storage.used = True
         if request.user.username == 'admin':
             bookings = Booking.objects.filter(
                 booking_date__gte=datetime.date.today()).order_by(
@@ -89,26 +103,37 @@ def create_booking(request):
             # verify valid date
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
+            tomorrow = datetime.date.today() + datetime.timedelta(days=1)
             if booking_date == datetime.date.today():
-                msg1 = "Online bookings only for future dates. "
-                msg2 = "Please call the restaurant to book for today."
-                error_message = f"{msg1}\n{msg2}"
+                error_message = f"Please call the restaurant \
+                                  to make a booking for today.\n\
+                                  Only bookings from {tomorrow} may be \
+                                  made online."
                 return render(
                               request,
                               'create_booking.html',
-                              {'dt_today': True,
+                              {'err_msg': True,
                                'error_message': error_message
                                }
                               )
             elif booking_date < datetime.date.today():
-                tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-                msg1 = "Please enter a valid date. "
-                msg2 = f"Online bookings only from {tomorrow}."
-                error_message = f"{msg1}\n{msg2}"
+                error_message = f"Please enter a valid date. \
+                                  Online bookings only from {tomorrow}."
                 return render(
                               request,
                               'create_booking.html',
-                              {'dt_yday': True,
+                              {'err_msg': True,
+                               'error_message': error_message
+                               }
+                              )
+
+            # Verify that the booking time is within business hours
+            if booking_time.hour < 10 or booking_time.hour >= 21:
+                error_message = "Kindly make a booking between 10am and 9pm!"
+                return render(
+                              request,
+                              'create_booking.html',
+                              {'err_msg': True,
                                'error_message': error_message
                                }
                               )
@@ -118,11 +143,12 @@ def create_booking(request):
             try:
                 check_table = Table.objects.get(table_id=table_id)
                 if check_table.open == 1:
+                    error_message = f'Table "{table_id}" is already booked.'
                     return render(
                                   request,
                                   'create_booking.html',
-                                  {'some_flag': True,
-                                   'table_id': table_id
+                                  {'err_msg': True,
+                                   'error_message': error_message
                                    }
                                   )
             except Table.DoesNotExist:
@@ -181,26 +207,38 @@ def update_booking(request, booking_id):
             # verify valid date
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
+            valid_dt(request, booking_date, booking_time)
             if booking_date == datetime.date.today():
-                msg1 = "Online bookings only for future dates. "
-                msg2 = "Please call the restaurant to book for today."
-                error_message = f"{msg1}\n{msg2}"
+                error_message = f"Please call the restaurant \
+                                 to change a booking made for today.\n\
+                                 Only bookings from {tomorrow} may be \
+                                 changed online."
                 return render(
                               request,
                               'update_booking.html',
-                              {'dt_today': True,
+                              {'err_msg': True,
                                'error_message': error_message
                                }
                               )
             elif booking_date < datetime.date.today():
                 tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-                msg1 = "Please enter a valid date. "
-                msg2 = f"Online bookings only from {tomorrow}."
-                error_message = f"{msg1}\n{msg2}"
+                error_message = f"Please enter a valid date. \
+                                  Online bookings only from {tomorrow}."
                 return render(
                               request,
                               'update_booking.html',
-                              {'dt_yday': True,
+                              {'err_msg': True,
+                               'error_message': error_message
+                               }
+                              )
+
+            # Verify that the booking time is within business hours
+            if booking_time.hour < 10 or booking_time.hour >= 21:
+                error_message = "Kindly make a booking between 10am and 9pm!"
+                return render(
+                              request,
+                              'update_booking.html',
+                              {'err_msg': True,
                                'error_message': error_message
                                }
                               )
@@ -212,11 +250,13 @@ def update_booking(request, booking_id):
                 try:
                     check_table = Table.objects.get(table_id=table_id)
                     if check_table.open == 1:
+                        error_message = f'Table "{table_id}" \
+                                          is already booked.'
                         return render(
                                       request,
                                       'update_booking.html',
-                                      {'some_flag': True,
-                                       'table_id': table_id
+                                      {'err_msg': True,
+                                       'error_message': error_message
                                        }
                                       )
                 except Table.DoesNotExist:
@@ -258,7 +298,7 @@ def update_booking(request, booking_id):
                               {'message': 'Booking change successful!'}
                               )
             else:
-               messages.success(request, 'Booking change successful!')
+                messages.success(request, 'Booking change successful!')
             return redirect('booking')
 
     form = BookingForm(instance=booking)
@@ -291,6 +331,7 @@ def delete_booking(request, booking_id):
 
     messages.success(request, 'Booking deleted!')
     return redirect('booking')
+
 
 def cancel_booking(request, booking_id):
     """Provide a means for users to cancel bookings"""
@@ -345,9 +386,19 @@ def open_table(request, table_id):
 
 
 def valid_dt(request, booking_date, booking_time):
+    """ Validate date and time """
+    if booking_time.hour < 10 or booking_time.hour >= 21:
+        error_message = "Kindly make a booking between 10am and 9pm!"
+        return render(
+                      request,
+                      'update_booking.html',
+                      {'bus_hours': True,
+                       'error_message': error_message
+                       }
+                      )
+
     if booking_date == datetime.date.today():
         error_message = "Please call the restaurant to book for today!"
-        print("dt_today")
         return render(
                       request,
                       'update_booking.html',
@@ -358,7 +409,6 @@ def valid_dt(request, booking_date, booking_time):
     elif booking_date < datetime.date.today():
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
         error_message = f"Please enter a valid date, starting from {tomorrow}"
-        print("dt_yday")
         return render(
                       request,
                       'update_booking.html',
