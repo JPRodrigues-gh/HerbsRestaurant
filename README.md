@@ -37,8 +37,7 @@
 
 ### Design
 
-* Wireframes for the project can be seen <a href="/static/design/herbs_restaurant.pdf" target="_blank" download>here</a>
-* [here](/static/design/herbs_restaurant.pdf)
+* Wireframes for the project can be seen [here](/static/design/herbs_restaurant.pdf)
 
 
 ## Testing
