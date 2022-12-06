@@ -1,7 +1,9 @@
 # Herb's Restaurant Booking App
 
+
 ## Problem Statement
 1. The user would like to book one or more guests for a meal in a restaurant at a particular time and date
+
 
 ## User Stories
 1. Site Navigation: As a **Site User** I can **easily navigate the site** so that **I can view the menu, sign up, and manage my bookings**
@@ -24,6 +26,20 @@
 18. About page: As a **Site User** I can **navigate to the About page** so that **I can view a brief intro to Herb’s Restaurant and its business hours
 19. View Bookings: As a **Site User** I can **view all my booking** so that **I make better plan my events and also cancel or change bookings**
 20. On Signup Add User: As a **Site User** when I **sign up** the app **will add my details to the user table**
+
+
+## Model and Design
+
+### Model
+
+* The data model: 
+![image](static/design/model.png)
+
+### Design
+
+* Wireframes for the project can be seen <a href="/static/design/herbs_restaurant.pdf" target="_blank" download>here</a>
+* [here](/static/design/herbs_restaurant.pdf)
+
 
 ## Testing
 
@@ -105,6 +121,10 @@
     * after changing confirm field from integer to char in booking model I didn't remove the conditional statement from the booking template used to set confirm 0 to No and 1 to Yes. This displayed inconsistent values.
 * TimeInput - when updating a booking the time was not pulled into the form
     * Cause: the format on the booking_time field was: ```format=('%h:%m')``` instead of ```format=('%H:%M')```
+* User could add any table id to the booking form
+    * Added checks to prevent booking for invalid table ids
+* User could add bookings for past dates
+    * Added checks to prevent users from adding bookings for past or current date. Only future bookings allowed.
 
 ### Unresolved
 * created date is updating to current date on update of a record
