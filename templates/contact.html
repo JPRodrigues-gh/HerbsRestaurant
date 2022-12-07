@@ -7,7 +7,7 @@
 <div class="container">
     <div class="row">
         <section class="page-section about-heading">
-            <div class="col-xl-5 col-lg-6 mx-auto">
+            <div class="col-xl-6 col-lg-7 col-md-9 mt-3 offset-md-4 mx-auto">
                 <div class="bg-faded rounded p-3">
                     <div class="text-center">
                         <h4 class="section-heading mb-4">Let us know how we can help you</h4>
@@ -19,7 +19,7 @@
                             <li class="{{ message.tags }}">{{ message }}</li>
                         </ul>
                         {% endif %}
-                        {{ form.as_p }}
+                        {{ form|crispy }}
                         <button class="btn btn-submit right enquire-button" type="submit">Submit</button>
                     </form>
 
