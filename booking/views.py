@@ -63,21 +63,7 @@ def about(request):
 # The Booking Form section
 def view_booking(request):
     """ View of Booking table """
-    # print(list(messages.get_messages(request)))
-    # messages.success(request, '')
-
-    # storage = messages.get_messages(request)
-    # for message in storage:
-    #     print(message)
-    #     storage.used = True
-    # storage.used = False
-
     if request.user.is_authenticated:
-        storage = messages.get_messages(request)
-        for message in storage:
-            print(message)
-            messages.success(request, '')
-            storage.used = True
         if request.user.username == 'admin':
             bookings = Booking.objects.filter(
                 booking_date__gte=datetime.date.today()).order_by(
@@ -153,7 +139,8 @@ def create_booking(request):
                                   )
             except Table.DoesNotExist:
                 message = {
-                           'message': "Enter a valid table id."
+                           'err_msg': True,
+                           'error_message': "Enter a valid table id."
                            }
                 return render(request, 'create_booking.html', message)
 
@@ -207,7 +194,7 @@ def update_booking(request, booking_id):
             # verify valid date
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
-            valid_dt(request, booking_date, booking_time)
+            tomorrow = datetime.date.today() + datetime.timedelta(days=1)
             if booking_date == datetime.date.today():
                 error_message = f"Please call the restaurant \
                                  to change a booking made for today.\n\
@@ -261,7 +248,8 @@ def update_booking(request, booking_id):
                                       )
                 except Table.DoesNotExist:
                     message = {
-                               'message': "Enter a valid table id."
+                               'err_msg': True,
+                               'error_message': "Enter a valid table id."
                                }
                     return render(request, 'update_booking.html', message)
 
