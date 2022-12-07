@@ -22,16 +22,7 @@
                 <button class="btn btn-secondary btn-sm" type="submit">Close</button>
               {% else %}
                 {{ form.as_p }}
-                {% if messages %}
-                  <ul class="messages">
-                  {% for message in messages %}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                  {% endfor %}
-                  </ul>
-                  <button class="btn btn-secondary btn-sm" type="submit">Close</button>
-                {% else %}
-                  <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
-                {% endif %}
+                <button class="btn btn-secondary btn-sm" type="submit">Submit</button>
               {% endif %}
             </form>
           {% else %}
