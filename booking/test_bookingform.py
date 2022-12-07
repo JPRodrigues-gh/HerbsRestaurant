@@ -62,7 +62,7 @@ class TestContactForm(TestCase):
         self.assertIn('table_id', form.errors.keys())
         self.assertEqual(
             form.errors['table_id'][0], 'This field is required.')
-  
+
     def test_no_of_guests_field_is_required(self):
         """
         Test that the no_of_guests field is required by leaving it blank
