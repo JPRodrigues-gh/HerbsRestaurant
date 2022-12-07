@@ -84,6 +84,12 @@
     * The contact table is updated with the content of the content form
 * Login/Sign up works as expected.
     * New users will receive and email to validate their account
+* Date and time validation
+    * Test that a valid date and time is entered.
+    * Users may not enter past dates
+    * User may not make or change bookings for the current day
+* Table id (table number) validation
+    * Test that user enters a valid table number
 
 ### Validator Testing
 
