@@ -83,5 +83,16 @@
         </section>
     </div>
 </div>
-
+<script>
+    setTimeout(function(){
+        const element = document.getElementById("msg");
+        let numb = element.childNodes.length;
+        if (numb > 0) {
+          // A for (let i = 0; i < numb; i++) can be used if it is
+          // clear that there is only one message in queue
+          const element = document.getElementById("msg");
+          element.remove();
+        }
+    },3000)
+</script>
 {% endblock content %}
