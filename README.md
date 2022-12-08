@@ -32,16 +32,10 @@
 
 ### Model
 
-* The current data model:
+* The data model:
   * The original intention was to use the `booking_join` table to link multiple bookings, for different dates and times, to a `table_id`
     * This functionality however was not implemented and will be a future enhancement
-  * Currently, in order to link bookings to tables, a foreign key relationship was made between the `booking` and `table` tables
 ![image](static/design/model_current.png)
-
-* The original data model design:
-  * This model was the first plan for the project
-![image](static/design/model_original.png)
-
 
 ### Design
 
@@ -98,6 +92,9 @@
     * User may not make or change bookings for the current day
 * Table id (table number) validation
     * Test that user enters a valid table number
+* Table_id or date change
+    * Test that on a change of date that there isn't already a booking for the table on the new date 
+    * Test that on a change of table_id that new table_id hasn't already been booked for that date
 
 ### Validator Testing
 
@@ -141,6 +138,7 @@
 
 ### Unresolved
 * created date is updating to current date on update of a record
+
 
 ## Technologies used
 
