@@ -32,8 +32,16 @@
 
 ### Model
 
-* The data model: 
-![image](static/design/model.png)
+* The current data model:
+  * The original intention was to use the `booking_join` table to link multiple bookings, for different dates and times, to a `table_id`
+    * This functionality however was not implemented and will be a future enhancement
+  * Currently, in order to link bookings to tables, a foreign key relationship was made between the `booking` and `table` tables
+![image](static/design/model_current.png)
+
+* The original data model design:
+  * This model was the first plan for the project
+![image](static/design/model_original.png)
+
 
 ### Design
 
