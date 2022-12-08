@@ -87,8 +87,10 @@ def create_booking(request):
         form = BookingForm(request.POST)
         if form.is_valid():
             # verify valid date
+            table_id = form.cleaned_data.get('table_id')
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
+            no_of_guests = form.cleaned_data.get('no_of_guests')
             tomorrow = datetime.date.today() + datetime.timedelta(days=1)
             if booking_date == datetime.date.today():
                 error_message = f"Please call the restaurant \
@@ -124,8 +126,23 @@ def create_booking(request):
                                }
                               )
 
+            # Verify the number of guests is suited to size of table
+            check_table = Table.objects.get(table_id=table_id)
+            if no_of_guests > check_table.no_of_places:
+                error_message = f'The number of guests is greater than \
+                                  the capacity of Table "{table_id}".\n\
+                                  Kindly book a larger table or book \
+                                  additional tables to accomodate the \
+                                  number of guests.'
+                return render(
+                            request,
+                            'create_booking.html',
+                            {'err_msg': True,
+                             'error_message': error_message
+                             }
+                            )
+
             # Verify that the table is not already booked
-            table_id = form.cleaned_data.get('table_id')
             try:
                 check_table = Table.objects.get(table_id=table_id)
                 if check_table.open == 1:
@@ -201,8 +218,10 @@ def update_booking(request, booking_id):
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             # verify valid date
+            table_id = form.cleaned_data.get('table_id')
             booking_date = form.cleaned_data.get('booking_date')
             booking_time = form.cleaned_data.get('booking_time')
+            no_of_guests = form.cleaned_data.get('no_of_guests')
             tomorrow = datetime.date.today() + datetime.timedelta(days=1)
             if booking_date == datetime.date.today():
                 error_message = f"Please call the restaurant \
@@ -239,8 +258,23 @@ def update_booking(request, booking_id):
                                }
                               )
 
+            # Verify the number of guests is suited to size of table
+            check_table = Table.objects.get(table_id=table_id)
+            if no_of_guests > check_table.no_of_places:
+                error_message = f'The number of guests is greater than \
+                                  the capacity of Table "{table_id}".\n\
+                                  Kindly book a larger table or book \
+                                  additional tables to accomodate the \
+                                  number of guests.'
+                return render(
+                            request,
+                            'update_booking.html',
+                            {'err_msg': True,
+                             'error_message': error_message
+                             }
+                            )
+
             # Verify that the table is not already booked
-            table_id = form.cleaned_data.get('table_id')
             if init_table_id != table_id or init_booking_date != booking_date:
                 try:
                     check_table = Table.objects.get(table_id=table_id)
