@@ -69,3 +69,4 @@ class BookingForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['confirm'].disabled = True
+        self.fields['table_id'].empty_label = ""
