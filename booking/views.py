@@ -358,8 +358,8 @@ def cancel_booking(request, booking_id):
 # The Tables Form section
 def view_tables(request):
     """ View of Table table """
-    tables = Table.objects.filter(open=0).order_by('table_id').all()
-    # tables = Table.objects.order_by('table_id').all()
+    # tables = Table.objects.filter(open=0).order_by('table_id').all()
+    tables = Table.objects.order_by('table_id').all()
     context = {
         'tables': tables
     }
