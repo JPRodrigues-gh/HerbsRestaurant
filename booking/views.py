@@ -129,14 +129,22 @@ def create_booking(request):
             try:
                 check_table = Table.objects.get(table_id=table_id)
                 if check_table.open == 1:
-                    error_message = f'Table "{table_id}" is already booked.'
-                    return render(
-                                  request,
-                                  'create_booking.html',
-                                  {'err_msg': True,
-                                   'error_message': error_message
-                                   }
-                                  )
+                    try:
+                        get_booking = Booking.objects.filter(
+                            table_id=table_id,
+                            booking_date=booking_date).first()
+                        if get_booking:
+                            error_message = f'Table "{table_id}" \
+                                              is already booked.'
+                            return render(
+                                          request,
+                                          'create_booking.html',
+                                          {'err_msg': True,
+                                           'error_message': error_message
+                                           }
+                                          )
+                    except Booking.DoesNotExist:
+                        return
             except Table.DoesNotExist:
                 message = {
                            'err_msg': True,
@@ -188,6 +196,7 @@ def update_booking(request, booking_id):
     """Provide a means for users to change bookings"""
     booking = get_object_or_404(Booking, booking_id=booking_id)
     init_table_id = booking.table_id
+    init_booking_date = booking.booking_date
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
@@ -232,8 +241,7 @@ def update_booking(request, booking_id):
 
             # Verify that the table is not already booked
             table_id = form.cleaned_data.get('table_id')
-            if init_table_id != table_id:
-                # check_table = get_object_or_404(Table, table_id=table_id)
+            if init_table_id != table_id or init_booking_date != booking_date:
                 try:
                     check_table = Table.objects.get(table_id=table_id)
                     if check_table.open == 1:
@@ -351,6 +359,7 @@ def cancel_booking(request, booking_id):
 def view_tables(request):
     """ View of Table table """
     tables = Table.objects.filter(open=0).order_by('table_id').all()
+    # tables = Table.objects.order_by('table_id').all()
     context = {
         'tables': tables
     }
