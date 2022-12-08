@@ -90,11 +90,14 @@
     * Test that a valid date and time is entered.
     * Users may not enter past dates
     * User may not make or change bookings for the current day
-* Table id (table number) validation
+* `Table_id` (table number) validation
     * Test that user enters a valid table number
-* Table_id or date change
+* `Table_id` or date change
     * Test that on a change of date that there isn't already a booking for the table on the new date 
-    * Test that on a change of table_id that new table_id hasn't already been booked for that date
+    * Test that on a change of `table_id` that new `table_id` hasn't already been booked for that date
+* Number of guests must not exceed table capacity
+    * Check if the number of guests is greater than the capacity of Table (table_id)
+    * Client should split the number of guest and book multiple tables
 
 ### Validator Testing
 
