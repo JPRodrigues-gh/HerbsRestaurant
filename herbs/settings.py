@@ -37,7 +37,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['herbsrestaurantv2.herokuapp.com',
                  'localhost']
 
@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'booking',
 ]
+
 
 # Provider specific settings for login in with social accounts
 # Below 2 lines go in INSTALLED_APPS
@@ -180,20 +181,16 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.\
-            password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.\
-            password_validation.MinimumLengthValidator',
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.\
-            password_validation.CommonPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.\
-            password_validation.NumericPasswordValidator',
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
 
@@ -216,7 +213,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # STATIC_ROOT = [os.path.join(BASE_DIR, 'staticfiles')]
 STATICFILES_STORAGE = (
-    'cloudinary_storage.storage.StaticHashedCloudinaryStorage',
+    'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 )
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATICFILES_FINDERS = (
