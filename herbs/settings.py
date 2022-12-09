@@ -14,10 +14,6 @@ from pathlib import Path
 import os
 import dj_database_url
 
-# import mimetypes
-
-# mimetypes.add_type("text/css", ".css", True)
-
 if os.path.isfile('env.py'):
     import env
 
@@ -61,40 +57,10 @@ INSTALLED_APPS = [
     'booking',
 ]
 
-
-# Provider specific settings for login in with social accounts
-# Below 2 lines go in INSTALLED_APPS
-# 'allauth.socialaccount.providers.google',
-# 'allauth.socialaccount.providers.facebook',
-#
-# SOCIALACCOUNT_PROVIDERS = {
-#     'google': {
-#        # For each OAuth based provider, either add a ``SocialApp``
-#        # (``socialaccount`` app) containing the required client
-#        # credentials, or list them here:
-#        'APP': {
-#           'client_id': os.environ['GOOGLE_APP_ID'],
-#           'secret': os.environ['GOOGLE_APP_SECRET'],
-#           'key': os.environ['GOOGLE_API_KEY']
-#         }
-#     },
-#     'facebook': {
-#         # For each OAuth based provider, either add a ``SocialApp``
-#         # (``socialaccount`` app) containing the required client
-#         # credentials, or list them here:
-#         'APP': {
-#             'client_id': os.environ['FACEBOOK_APP_ID'],
-#             'secret': os.environ['FACEBOOK_APP_SECRET'],
-#             'key': os.environ['FACEBOOK_API_KEY']
-#         }
-#     },
-# }
-
 SITE_ID = 1
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
@@ -117,11 +83,6 @@ else:
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASS')
 DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
-
-# To use MESSAGE_LEVEL add this line to top of settings file
-# from django.contrib.messages import constants as message_constants
-
-# MESSAGE_LEVEL = message_constants.DEBUG
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -164,14 +125,6 @@ WSGI_APPLICATION = 'herbs.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-# if development:
-#     DATABASES = {
-#         'default': {
-#            'ENGINE': 'django.db.backends.sqlite3',
-#            'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# else:
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
@@ -212,7 +165,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATIC_ROOT = [os.path.join(BASE_DIR, 'staticfiles')]
 STATICFILES_STORAGE = (
     'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 )
@@ -220,7 +172,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Media files section
