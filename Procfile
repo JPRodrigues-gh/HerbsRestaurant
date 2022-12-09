@@ -1,1 +1,1 @@
-web: gunicorn herbs.wsgi:application
+web: gunicorn herbs.wsgi
